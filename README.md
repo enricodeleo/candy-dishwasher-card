@@ -63,16 +63,26 @@ entity: sensor.dishwasher
 | `entity` | yes | The Candy dishwasher status sensor |
 | `name` | no | Card title (default "Dishwasher" / "Lavastoviglie") |
 | `needs_emptying` | no | A binary sensor that is on while a finished load waits to be emptied (see below) |
+| `emptied_button` | no | An input button that clears it; the card shows **Mark as emptied** while a load waits (see below) |
 | `hide_controls` | no | Hide Start/Stop (default `false`) |
 | `salt`, `rinse_aid`, `door`, `remote`, `error`, `eco`, `three_in_one`, `start`, `stop` | no | Override an entity. By default they are found on the dishwasher's device, by the Candy integration's names. Set them only if that fails |
 
 ### "Needs emptying"
 
 The dishwasher can't report this, so the card takes it from a binary sensor of your own.
-This trigger-based template turns on when a cycle finishes, and turns off when the door
-opens or a new cycle starts. It keeps its state across restarts.
+It turns on when a cycle finishes, and off when the door opens, a new cycle starts, or you
+tap **Mark as emptied** on the card. It keeps its state across restarts.
+
+The button matters: many Candy dishwashers drop off Wi-Fi a couple of minutes after
+finishing, so Home Assistant never sees the door open. Add an input button for the card to
+press, and the template below:
 
 ```yaml
+input_button:
+  dishwasher_emptied:
+    name: Dishwasher emptied
+    icon: mdi:dishwasher-off
+
 template:
   - triggers:
       - trigger: state
@@ -85,9 +95,19 @@ template:
         to: "on"
         id: emptied
       - trigger: state
+        entity_id: input_button.dishwasher_emptied
+        not_to: [unavailable, unknown]
+        id: emptied
+      - trigger: state
         entity_id: sensor.dishwasher
         to: [Pre-wash, Wash, Rinse, Drying, Delayed start programmed]
         id: emptied
+    conditions:
+      # The button's state coming back after a restart is not a press.
+      - condition: template
+        value_template: >-
+          {{ trigger.entity_id != 'input_button.dishwasher_emptied'
+             or (trigger.from_state is not none and trigger.from_state.state != 'unavailable') }}
     binary_sensor:
       - name: Dishwasher needs emptying
         unique_id: dishwasher_needs_emptying
@@ -95,16 +115,27 @@ template:
         state: "{{ trigger.id == 'finished' }}"
         attributes:
           finished_at: >-
-            {{ now().isoformat() if trigger.id == 'finished' else this.attributes.get('finished_at') }}
+            {{ now().isoformat() if trigger.id == 'finished'
+               else this.attributes.get('finished_at') if this is defined and this.attributes is defined
+               else none }}
 ```
 
-Adjust `sensor.dishwasher` and `binary_sensor.dishwasher_door` to your entity ids. With
-`finished_at` the card shows when the load finished, even days later; without the sensor it
-uses the time the status became "Finished", which restarts with Home Assistant.
+Adjust `sensor.dishwasher` and `binary_sensor.dishwasher_door` to your entity ids, then set
+the card's options:
+
+```yaml
+needs_emptying: binary_sensor.dishwasher_needs_emptying
+emptied_button: input_button.dishwasher_emptied
+```
+
+While a finished load waits, the card's button becomes **Mark as emptied**, even when the
+dishwasher is offline. With `finished_at` the card shows when the load finished, even days
+later; without the sensor it uses the time the status became "Finished", which restarts with
+Home Assistant.
 
 Only a running phase followed by "Finished" counts. That avoids a false "needs emptying"
-after a restart, but a cycle that ends while Home Assistant is restarting or the dishwasher is
-unreachable is not caught.
+after a reconnect or a restart, but a cycle that ends while Home Assistant is restarting or the
+dishwasher is unreachable is not caught.
 
 ## Development
 

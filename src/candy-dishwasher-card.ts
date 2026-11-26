@@ -51,6 +51,7 @@ interface CardConfig extends Partial<Record<Role, string>> {
   entity: string;
   name?: string;
   needs_emptying?: string;
+  emptied_button?: string;
   hide_controls?: boolean;
 }
 
@@ -80,6 +81,7 @@ const LABELS: Record<string, string> = {
   entity: "Dishwasher status sensor (Candy)",
   name: "Name",
   needs_emptying: "Needs emptying (binary sensor, optional)",
+  emptied_button: "Mark as emptied (input button, optional)",
   hide_controls: "Hide Start / Stop",
   salt: "Salt empty",
   rinse_aid: "Rinse aid empty",
@@ -138,6 +140,7 @@ const TEXT = {
     delayedSub: "Delayed start programmed",
     needsEmptying: "Needs emptying",
     emptied: "Emptied",
+    markEmptied: "Mark as emptied",
     errorSub: (c: string) => `Error code ${c}`,
     program: "Program",
     remaining: "Remaining",
@@ -185,6 +188,7 @@ const TEXT = {
     delayedSub: "Partenza ritardata impostata",
     needsEmptying: "Da svuotare",
     emptied: "Svuotata",
+    markEmptied: "Segna come svuotata",
     errorSub: (c: string) => `Codice errore ${c}`,
     program: "Programma",
     remaining: "Mancano",
@@ -250,6 +254,7 @@ export class CandyDishwasherCard extends LitElement {
         },
         { name: "name", selector: { text: {} } },
         optional("needs_emptying", "binary_sensor"),
+        optional("emptied_button", "input_button"),
         { name: "hide_controls", selector: { boolean: {} } },
         {
           type: "expandable",
@@ -333,6 +338,7 @@ export class CandyDishwasherCard extends LitElement {
     const ids = [
       config.entity,
       config.needs_emptying,
+      config.emptied_button,
       ...(Object.keys(DISCOVERY) as Role[]).map((r) => config[r]),
       ...Object.values(this.entities()).map((s) => s.entity_id),
     ].filter((id): id is string => Boolean(id));
@@ -368,10 +374,11 @@ export class CandyDishwasherCard extends LitElement {
     );
   }
 
-  // Home Assistant shows its own error toast when a press fails.
+  // Works for button and input_button. Home Assistant shows its own toast when a press fails.
   private send(button: HassEntityState): void {
+    const domain = button.entity_id.split(".")[0];
     Promise.resolve(
-      this.hass!.callService("button", "press", { entity_id: button.entity_id }),
+      this.hass!.callService(domain, "press", { entity_id: button.entity_id }),
     ).catch(() => {});
   }
 
@@ -552,18 +559,30 @@ export class CandyDishwasherCard extends LitElement {
     // The integration makes its buttons unavailable when remote control is off, while a
     // command is being sent, and (Start) while the door is open. Explain the likeliest cause.
     const buttonDown = button?.state === "unavailable";
-    const hint = offline
-      ? t.hintUnavailable
-      : !remote
-        ? t.hintRemote(isStop)
-        : !isStop && door
-          ? t.hintDoor
-          : buttonDown
-            ? t.hintBusy
-            : "";
+    // While a finished load waits, the action is "Mark as emptied": the machine is usually
+    // offline by then, so the door opening can't clear "needs emptying" by itself.
+    const emptiedButton = config.emptied_button ? this.hass.states[config.emptied_button] : undefined;
+    const mark =
+      finished && needsEmptying && emptiedButton && emptiedButton.state !== "unavailable"
+        ? emptiedButton
+        : undefined;
+    const hint = mark
+      ? ""
+      : offline
+        ? t.hintUnavailable
+        : !remote
+          ? t.hintRemote(isStop)
+          : !isStop && door
+            ? t.hintDoor
+            : buttonDown
+              ? t.hintBusy
+              : "";
 
-    const action =
-      !config.hide_controls && button
+    const action = mark
+      ? html`<button class="action start" @click=${(e: Event) => this.press(e, mark)}>
+          <ha-icon icon="mdi:check"></ha-icon>${t.markEmptied}
+        </button>`
+      : !config.hide_controls && button
         ? html`<button
             class="action ${isStop ? "stop" : "start"} ${this.armedStop ? "armed" : ""}"
             ?disabled=${hint !== ""}
