@@ -26,8 +26,10 @@ Every state has its own animated icon.
 | Error code other than `E0` | "Error E…" over whatever step it was on |
 | Unavailable | No data; Start is disabled |
 
-Below the steps, tags show the door, salt, rinse aid and remote control. They use each
-entity's own Home Assistant icon and open its details when tapped. Eco and 3-in-1 show when on.
+Below the steps, tags show the door, salt, rinse aid and remote control with each entity's
+own Home Assistant icon; tap one to open its details. When all is well a tag is just its
+icon, so the row stays on one line; an open door or a problem (salt or rinse aid empty,
+remote control off) also shows text. Eco and 3-in-1 show when on.
 
 - **Stop** asks for a second tap within 3 seconds, because it cancels the program.
 - **Start** and **Stop** need remote control enabled on the dishwasher's panel. Until then the

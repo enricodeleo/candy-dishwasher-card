@@ -219,7 +219,8 @@ interface Pill {
   role?: Role;
   entity?: HassEntityState;
   icon: string;
-  kind: "ok" | "bad" | "neutral" | "info";
+  // ok and quiet show the icon only; bad, neutral and info also show their text.
+  kind: "ok" | "quiet" | "bad" | "neutral" | "info";
 }
 
 export class CandyDishwasherCard extends LitElement {
@@ -394,10 +395,14 @@ export class CandyDishwasherCard extends LitElement {
     const icon = p.entity
       ? html`<ha-state-icon .hass=${this.hass} .stateObj=${p.entity}></ha-state-icon>`
       : html`<ha-icon icon=${p.icon}></ha-icon>`;
+    // Tags with nothing to report show only their icon, so the row stays on one line.
+    const compact = p.kind === "ok" || p.kind === "quiet";
     return html`<span
-      class="pill ${p.kind} ${p.entity ? "link" : ""}"
+      class="pill ${p.kind} ${compact ? "compact" : ""} ${p.entity ? "link" : ""}"
+      title=${p.text}
+      aria-label=${p.text}
       @click=${p.entity ? (e: Event) => this.moreInfo(e, p.entity!.entity_id) : undefined}
-      >${icon}${p.text}</span
+      >${icon}${compact ? nothing : p.text}</span
     >`;
   }
 
@@ -519,7 +524,7 @@ export class CandyDishwasherCard extends LitElement {
           role: "door",
           entity: ents.door,
           icon: door ? "mdi:door-open" : "mdi:door-closed",
-          kind: "neutral",
+          kind: door ? "neutral" : "quiet",
         },
         { text: salt ? t.saltEmpty : t.saltOk, role: "salt", entity: ents.salt, icon: FALLBACK_ICON.salt!, kind: salt ? "bad" : "ok" },
         {
@@ -774,6 +779,9 @@ export class CandyDishwasherCard extends LitElement {
     .pill.info {
       color: var(--cdw-blue);
       background: color-mix(in srgb, var(--cdw-blue) 16%, transparent);
+    }
+    .pill.compact {
+      padding: 6px;
     }
     .pill.link {
       cursor: pointer;
