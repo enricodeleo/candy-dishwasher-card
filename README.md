@@ -11,6 +11,10 @@ It reads the entities created by the **[Candy integration by bigmoby](https://gi
 
 ## What it shows
 
+![The card in a light theme: washing, finished and waiting to be emptied, idle with remote control off](assets/screenshots/screenshot-light.png)
+
+![The card in a dark theme: drying, an error during rinse, and a delayed start](assets/screenshots/screenshot-dark.png)
+
 Every state has its own animated icon.
 
 | Dishwasher | Card |
