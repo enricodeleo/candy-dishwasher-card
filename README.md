@@ -32,8 +32,8 @@ icon, so the row stays on one line; an open door or a problem (salt or rinse aid
 remote control off) also shows text. Eco and 3-in-1 show when on.
 
 - **Stop** asks for a second tap within 3 seconds, because it cancels the program.
-- **Start** and **Stop** need remote control enabled on the dishwasher's panel. Until then the
-  button is disabled and the card says why.
+- **Start** and **Stop** need remote control enabled on the dishwasher's panel, and Start also
+  needs the door closed. Otherwise the button is disabled and the card says why.
 - Animations stop when the system asks for reduced motion.
 - Text is in English or Italian, following your Home Assistant language.
 

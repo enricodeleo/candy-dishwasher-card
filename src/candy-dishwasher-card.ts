@@ -164,6 +164,7 @@ const TEXT = {
     hintRemote: (stop: boolean) =>
       `Turn on remote control on the dishwasher to ${stop ? "stop" : "start"} it from here.`,
     hintDoor: "Close the door before starting.",
+    hintBusy: "Waiting for the dishwasher…",
     missing: "Entity not found",
   },
   it: {
@@ -210,6 +211,7 @@ const TEXT = {
     hintRemote: (stop: boolean) =>
       `Attiva il controllo remoto sulla lavastoviglie per ${stop ? "fermarla" : "avviarla"} da qui.`,
     hintDoor: "Chiudi la porta prima di avviare.",
+    hintBusy: "In attesa della lavastoviglie…",
     missing: "Entità non trovata",
   },
 };
@@ -547,13 +549,24 @@ export class CandyDishwasherCard extends LitElement {
     // One action: Stop while a cycle runs or waits, Start otherwise.
     const isStop = running || delayed;
     const button = isStop ? ents.stop : ents.start;
-    const blocked = offline || button?.state === "unavailable" ? t.hintUnavailable : !remote ? t.hintRemote(isStop) : "";
-    const hint = blocked || (!isStop && door ? t.hintDoor : "");
+    // The integration makes its buttons unavailable when remote control is off, while a
+    // command is being sent, and (Start) while the door is open. Explain the likeliest cause.
+    const buttonDown = button?.state === "unavailable";
+    const hint = offline
+      ? t.hintUnavailable
+      : !remote
+        ? t.hintRemote(isStop)
+        : !isStop && door
+          ? t.hintDoor
+          : buttonDown
+            ? t.hintBusy
+            : "";
+
     const action =
       !config.hide_controls && button
         ? html`<button
             class="action ${isStop ? "stop" : "start"} ${this.armedStop ? "armed" : ""}"
-            ?disabled=${blocked !== ""}
+            ?disabled=${hint !== ""}
             @click=${(e: Event) => (isStop ? this.pressStop(e, button) : this.press(e, button))}
           >
             <ha-icon icon=${isStop ? "mdi:stop" : "mdi:play"}></ha-icon>
