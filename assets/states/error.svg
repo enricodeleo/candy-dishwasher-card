@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" aria-hidden="true">
+<g><animateTransform attributeName="transform" type="translate" values="0 0;-5 0;5 0;-4 0;4 0;0 0;0 0" keyTimes="0;.05;.1;.15;.2;.25;1" dur="2s" repeatCount="indefinite"></animateTransform>
+<line x1="105" y1="332" x2="105" y2="346" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="295" y1="332" x2="295" y2="346" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<rect class="paper" x="80" y="90" width="240" height="240" rx="20" stroke="currentColor" stroke-width="10"></rect>
+<line x1="80" y1="150" x2="320" y2="150" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="112" y1="108" x2="112" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="134" y1="108" x2="134" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="156" y1="108" x2="156" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="178" y1="108" x2="178" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="200" y1="108" x2="200" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+
+<line x1="80" y1="290" x2="320" y2="290" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="160" y1="172" x2="240" y2="172" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<g><circle cx="280" cy="120" r="17" fill="#FB8C00"><animate attributeName="r" values="17;21;17" dur="1.2s" repeatCount="indefinite"></animate></circle>
+<line x1="280" y1="110" x2="280" y2="122" stroke="#fff" stroke-width="6" stroke-linecap="round"></line><circle cx="280" cy="131" r="3.5" fill="#fff"></circle></g>
+</g>
+</svg>

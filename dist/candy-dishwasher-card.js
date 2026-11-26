@@ -1,247 +1,366 @@
-var It=Object.defineProperty;var jt=Object.getOwnPropertyDescriptor;var T=(r,t,e,s)=>{for(var i=s>1?void 0:s?jt(t,e):t,o=r.length-1,n;o>=0;o--)(n=r[o])&&(i=(s?n(t,e,i):n(i))||i);return s&&i&&It(t,e,i),i};var L=globalThis,F=L.ShadowRoot&&(L.ShadyCSS===void 0||L.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,K=Symbol(),ft=new WeakMap,N=class{constructor(t,e,s){if(this._$cssResult$=!0,s!==K)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=t,this.t=e}get styleSheet(){let t=this.o,e=this.t;if(F&&t===void 0){let s=e!==void 0&&e.length===1;s&&(t=ft.get(e)),t===void 0&&((this.o=t=new CSSStyleSheet).replaceSync(this.cssText),s&&ft.set(e,t))}return t}toString(){return this.cssText}},yt=r=>new N(typeof r=="string"?r:r+"",void 0,K),Z=(r,...t)=>{let e=r.length===1?r[0]:t.reduce((s,i,o)=>s+(n=>{if(n._$cssResult$===!0)return n.cssText;if(typeof n=="number")return n;throw Error("Value passed to 'css' function must be a 'css' function result: "+n+". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.")})(i)+r[o+1],r[0]);return new N(e,r,K)},gt=(r,t)=>{if(F)r.adoptedStyleSheets=t.map(e=>e instanceof CSSStyleSheet?e:e.styleSheet);else for(let e of t){let s=document.createElement("style"),i=L.litNonce;i!==void 0&&s.setAttribute("nonce",i),s.textContent=e.cssText,r.appendChild(s)}},Y=F?r=>r:r=>r instanceof CSSStyleSheet?(t=>{let e="";for(let s of t.cssRules)e+=s.cssText;return yt(e)})(r):r;var{is:qt,defineProperty:zt,getOwnPropertyDescriptor:Vt,getOwnPropertyNames:Wt,getOwnPropertySymbols:Qt,getPrototypeOf:Gt}=Object,I=globalThis,vt=I.trustedTypes,Kt=vt?vt.emptyScript:"",Zt=I.reactiveElementPolyfillSupport,P=(r,t)=>r,R={toAttribute(r,t){switch(t){case Boolean:r=r?Kt:null;break;case Object:case Array:r=r==null?r:JSON.stringify(r)}return r},fromAttribute(r,t){let e=r;switch(t){case Boolean:e=r!==null;break;case Number:e=r===null?null:Number(r);break;case Object:case Array:try{e=JSON.parse(r)}catch{e=null}}return e}},j=(r,t)=>!qt(r,t),_t={attribute:!0,type:String,converter:R,reflect:!1,useDefault:!1,hasChanged:j};Symbol.metadata??=Symbol("metadata"),I.litPropertyMetadata??=new WeakMap;var g=class extends HTMLElement{static addInitializer(t){this._$Ei(),(this.l??=[]).push(t)}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(t,e=_t){if(e.state&&(e.attribute=!1),this._$Ei(),this.prototype.hasOwnProperty(t)&&((e=Object.create(e)).wrapped=!0),this.elementProperties.set(t,e),!e.noAccessor){let s=Symbol(),i=this.getPropertyDescriptor(t,s,e);i!==void 0&&zt(this.prototype,t,i)}}static getPropertyDescriptor(t,e,s){let{get:i,set:o}=Vt(this.prototype,t)??{get(){return this[e]},set(n){this[e]=n}};return{get:i,set(n){let a=i?.call(this);o?.call(this,n),this.requestUpdate(t,a,s)},configurable:!0,enumerable:!0}}static getPropertyOptions(t){return this.elementProperties.get(t)??_t}static _$Ei(){if(this.hasOwnProperty(P("elementProperties")))return;let t=Gt(this);t.finalize(),t.l!==void 0&&(this.l=[...t.l]),this.elementProperties=new Map(t.elementProperties)}static finalize(){if(this.hasOwnProperty(P("finalized")))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(P("properties"))){let e=this.properties,s=[...Wt(e),...Qt(e)];for(let i of s)this.createProperty(i,e[i])}let t=this[Symbol.metadata];if(t!==null){let e=litPropertyMetadata.get(t);if(e!==void 0)for(let[s,i]of e)this.elementProperties.set(s,i)}this._$Eh=new Map;for(let[e,s]of this.elementProperties){let i=this._$Eu(e,s);i!==void 0&&this._$Eh.set(i,e)}this.elementStyles=this.finalizeStyles(this.styles)}static finalizeStyles(t){let e=[];if(Array.isArray(t)){let s=new Set(t.flat(1/0).reverse());for(let i of s)e.unshift(Y(i))}else t!==void 0&&e.push(Y(t));return e}static _$Eu(t,e){let s=e.attribute;return s===!1?void 0:typeof s=="string"?s:typeof t=="string"?t.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev()}_$Ev(){this._$ES=new Promise(t=>this.enableUpdating=t),this._$AL=new Map,this._$E_(),this.requestUpdate(),this.constructor.l?.forEach(t=>t(this))}addController(t){(this._$EO??=new Set).add(t),this.renderRoot!==void 0&&this.isConnected&&t.hostConnected?.()}removeController(t){this._$EO?.delete(t)}_$E_(){let t=new Map,e=this.constructor.elementProperties;for(let s of e.keys())this.hasOwnProperty(s)&&(t.set(s,this[s]),delete this[s]);t.size>0&&(this._$Ep=t)}createRenderRoot(){let t=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return gt(t,this.constructor.elementStyles),t}connectedCallback(){this.renderRoot??=this.createRenderRoot(),this.enableUpdating(!0),this._$EO?.forEach(t=>t.hostConnected?.())}enableUpdating(t){}disconnectedCallback(){this._$EO?.forEach(t=>t.hostDisconnected?.())}attributeChangedCallback(t,e,s){this._$AK(t,s)}_$ET(t,e){let s=this.constructor.elementProperties.get(t),i=this.constructor._$Eu(t,s);if(i!==void 0&&s.reflect===!0){let o=(s.converter?.toAttribute!==void 0?s.converter:R).toAttribute(e,s.type);this._$Em=t,o==null?this.removeAttribute(i):this.setAttribute(i,o),this._$Em=null}}_$AK(t,e){let s=this.constructor,i=s._$Eh.get(t);if(i!==void 0&&this._$Em!==i){let o=s.getPropertyOptions(i),n=typeof o.converter=="function"?{fromAttribute:o.converter}:o.converter?.fromAttribute!==void 0?o.converter:R;this._$Em=i;let a=n.fromAttribute(e,o.type);this[i]=a??this._$Ej?.get(i)??a,this._$Em=null}}requestUpdate(t,e,s,i=!1,o){if(t!==void 0){let n=this.constructor;if(i===!1&&(o=this[t]),s??=n.getPropertyOptions(t),!((s.hasChanged??j)(o,e)||s.useDefault&&s.reflect&&o===this._$Ej?.get(t)&&!this.hasAttribute(n._$Eu(t,s))))return;this.C(t,e,s)}this.isUpdatePending===!1&&(this._$ES=this._$EP())}C(t,e,{useDefault:s,reflect:i,wrapped:o},n){s&&!(this._$Ej??=new Map).has(t)&&(this._$Ej.set(t,n??e??this[t]),o!==!0||n!==void 0)||(this._$AL.has(t)||(this.hasUpdated||s||(e=void 0),this._$AL.set(t,e)),i===!0&&this._$Em!==t&&(this._$Eq??=new Set).add(t))}async _$EP(){this.isUpdatePending=!0;try{await this._$ES}catch(e){Promise.reject(e)}let t=this.scheduleUpdate();return t!=null&&await t,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??=this.createRenderRoot(),this._$Ep){for(let[i,o]of this._$Ep)this[i]=o;this._$Ep=void 0}let s=this.constructor.elementProperties;if(s.size>0)for(let[i,o]of s){let{wrapped:n}=o,a=this[i];n!==!0||this._$AL.has(i)||a===void 0||this.C(i,void 0,o,a)}}let t=!1,e=this._$AL;try{t=this.shouldUpdate(e),t?(this.willUpdate(e),this._$EO?.forEach(s=>s.hostUpdate?.()),this.update(e)):this._$EM()}catch(s){throw t=!1,this._$EM(),s}t&&this._$AE(e)}willUpdate(t){}_$AE(t){this._$EO?.forEach(e=>e.hostUpdated?.()),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(t)),this.updated(t)}_$EM(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(t){return!0}update(t){this._$Eq&&=this._$Eq.forEach(e=>this._$ET(e,this[e])),this._$EM()}updated(t){}firstUpdated(t){}};g.elementStyles=[],g.shadowRootOptions={mode:"open"},g[P("elementProperties")]=new Map,g[P("finalized")]=new Map,Zt?.({ReactiveElement:g}),(I.reactiveElementVersions??=[]).push("2.1.2");var rt=globalThis,$t=r=>r,q=rt.trustedTypes,bt=q?q.createPolicy("lit-html",{createHTML:r=>r}):void 0,Et="$lit$",$=`lit$${Math.random().toFixed(9).slice(2)}$`,Ct="?"+$,Yt=`<${Ct}>`,x=document,B=()=>x.createComment(""),O=r=>r===null||typeof r!="object"&&typeof r!="function",nt=Array.isArray,Jt=r=>nt(r)||typeof r?.[Symbol.iterator]=="function",J=`[ 	
-\f\r]`,M=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,At=/-->/g,wt=/>/g,A=RegExp(`>|${J}(?:([^\\s"'>=/]+)(${J}*=${J}*(?:[^ 	
-\f\r"'\`<>=]|("|')|))|$)`,"g"),xt=/'/g,kt=/"/g,Tt=/^(?:script|style|textarea|title)$/i,ot=r=>(t,...e)=>({_$litType$:r,strings:t,values:e}),y=ot(1),he=ot(2),pe=ot(3),v=Symbol.for("lit-noChange"),d=Symbol.for("lit-nothing"),St=new WeakMap,w=x.createTreeWalker(x,129);function Nt(r,t){if(!nt(r)||!r.hasOwnProperty("raw"))throw Error("invalid template strings array");return bt!==void 0?bt.createHTML(t):t}var Xt=(r,t)=>{let e=r.length-1,s=[],i,o=t===2?"<svg>":t===3?"<math>":"",n=M;for(let a=0;a<e;a++){let l=r[a],p,u,c=-1,m=0;for(;m<l.length&&(n.lastIndex=m,u=n.exec(l),u!==null);)m=n.lastIndex,n===M?u[1]==="!--"?n=At:u[1]!==void 0?n=wt:u[2]!==void 0?(Tt.test(u[2])&&(i=RegExp("</"+u[2],"g")),n=A):u[3]!==void 0&&(n=A):n===A?u[0]===">"?(n=i??M,c=-1):u[1]===void 0?c=-2:(c=n.lastIndex-u[2].length,p=u[1],n=u[3]===void 0?A:u[3]==='"'?kt:xt):n===kt||n===xt?n=A:n===At||n===wt?n=M:(n=A,i=void 0);let f=n===A&&r[a+1].startsWith("/>")?" ":"";o+=n===M?l+Yt:c>=0?(s.push(p),l.slice(0,c)+Et+l.slice(c)+$+f):l+$+(c===-2?a:f)}return[Nt(r,o+(r[e]||"<?>")+(t===2?"</svg>":t===3?"</math>":"")),s]},H=class r{constructor({strings:t,_$litType$:e},s){let i;this.parts=[];let o=0,n=0,a=t.length-1,l=this.parts,[p,u]=Xt(t,e);if(this.el=r.createElement(p,s),w.currentNode=this.el.content,e===2||e===3){let c=this.el.content.firstChild;c.replaceWith(...c.childNodes)}for(;(i=w.nextNode())!==null&&l.length<a;){if(i.nodeType===1){if(i.hasAttributes())for(let c of i.getAttributeNames())if(c.endsWith(Et)){let m=u[n++],f=i.getAttribute(c).split($),_=/([.?@])?(.*)/.exec(m);l.push({type:1,index:o,name:_[2],strings:f,ctor:_[1]==="."?tt:_[1]==="?"?et:_[1]==="@"?st:C}),i.removeAttribute(c)}else c.startsWith($)&&(l.push({type:6,index:o}),i.removeAttribute(c));if(Tt.test(i.tagName)){let c=i.textContent.split($),m=c.length-1;if(m>0){i.textContent=q?q.emptyScript:"";for(let f=0;f<m;f++)i.append(c[f],B()),w.nextNode(),l.push({type:2,index:++o});i.append(c[m],B())}}}else if(i.nodeType===8)if(i.data===Ct)l.push({type:2,index:o});else{let c=-1;for(;(c=i.data.indexOf($,c+1))!==-1;)l.push({type:7,index:o}),c+=$.length-1}o++}}static createElement(t,e){let s=x.createElement("template");return s.innerHTML=t,s}};function E(r,t,e=r,s){if(t===v)return t;let i=s!==void 0?e._$Co?.[s]:e._$Cl,o=O(t)?void 0:t._$litDirective$;return i?.constructor!==o&&(i?._$AO?.(!1),o===void 0?i=void 0:(i=new o(r),i._$AT(r,e,s)),s!==void 0?(e._$Co??=[])[s]=i:e._$Cl=i),i!==void 0&&(t=E(r,i._$AS(r,t.values),i,s)),t}var X=class{constructor(t,e){this._$AV=[],this._$AN=void 0,this._$AD=t,this._$AM=e}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(t){let{el:{content:e},parts:s}=this._$AD,i=(t?.creationScope??x).importNode(e,!0);w.currentNode=i;let o=w.nextNode(),n=0,a=0,l=s[0];for(;l!==void 0;){if(n===l.index){let p;l.type===2?p=new U(o,o.nextSibling,this,t):l.type===1?p=new l.ctor(o,l.name,l.strings,this,t):l.type===6&&(p=new it(o,this,t)),this._$AV.push(p),l=s[++a]}n!==l?.index&&(o=w.nextNode(),n++)}return w.currentNode=x,i}p(t){let e=0;for(let s of this._$AV)s!==void 0&&(s.strings!==void 0?(s._$AI(t,s,e),e+=s.strings.length-2):s._$AI(t[e])),e++}},U=class r{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(t,e,s,i){this.type=2,this._$AH=d,this._$AN=void 0,this._$AA=t,this._$AB=e,this._$AM=s,this.options=i,this._$Cv=i?.isConnected??!0}get parentNode(){let t=this._$AA.parentNode,e=this._$AM;return e!==void 0&&t?.nodeType===11&&(t=e.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,e=this){t=E(this,t,e),O(t)?t===d||t==null||t===""?(this._$AH!==d&&this._$AR(),this._$AH=d):t!==this._$AH&&t!==v&&this._(t):t._$litType$!==void 0?this.$(t):t.nodeType!==void 0?this.T(t):Jt(t)?this.k(t):this._(t)}O(t){return this._$AA.parentNode.insertBefore(t,this._$AB)}T(t){this._$AH!==t&&(this._$AR(),this._$AH=this.O(t))}_(t){this._$AH!==d&&O(this._$AH)?this._$AA.nextSibling.data=t:this.T(x.createTextNode(t)),this._$AH=t}$(t){let{values:e,_$litType$:s}=t,i=typeof s=="number"?this._$AC(t):(s.el===void 0&&(s.el=H.createElement(Nt(s.h,s.h[0]),this.options)),s);if(this._$AH?._$AD===i)this._$AH.p(e);else{let o=new X(i,this),n=o.u(this.options);o.p(e),this.T(n),this._$AH=o}}_$AC(t){let e=St.get(t.strings);return e===void 0&&St.set(t.strings,e=new H(t)),e}k(t){nt(this._$AH)||(this._$AH=[],this._$AR());let e=this._$AH,s,i=0;for(let o of t)i===e.length?e.push(s=new r(this.O(B()),this.O(B()),this,this.options)):s=e[i],s._$AI(o),i++;i<e.length&&(this._$AR(s&&s._$AB.nextSibling,i),e.length=i)}_$AR(t=this._$AA.nextSibling,e){for(this._$AP?.(!1,!0,e);t!==this._$AB;){let s=$t(t).nextSibling;$t(t).remove(),t=s}}setConnected(t){this._$AM===void 0&&(this._$Cv=t,this._$AP?.(t))}},C=class{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(t,e,s,i,o){this.type=1,this._$AH=d,this._$AN=void 0,this.element=t,this.name=e,this._$AM=i,this.options=o,s.length>2||s[0]!==""||s[1]!==""?(this._$AH=Array(s.length-1).fill(new String),this.strings=s):this._$AH=d}_$AI(t,e=this,s,i){let o=this.strings,n=!1;if(o===void 0)t=E(this,t,e,0),n=!O(t)||t!==this._$AH&&t!==v,n&&(this._$AH=t);else{let a=t,l,p;for(t=o[0],l=0;l<o.length-1;l++)p=E(this,a[s+l],e,l),p===v&&(p=this._$AH[l]),n||=!O(p)||p!==this._$AH[l],p===d?t=d:t!==d&&(t+=(p??"")+o[l+1]),this._$AH[l]=p}n&&!i&&this.j(t)}j(t){t===d?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,t??"")}},tt=class extends C{constructor(){super(...arguments),this.type=3}j(t){this.element[this.name]=t===d?void 0:t}},et=class extends C{constructor(){super(...arguments),this.type=4}j(t){this.element.toggleAttribute(this.name,!!t&&t!==d)}},st=class extends C{constructor(t,e,s,i,o){super(t,e,s,i,o),this.type=5}_$AI(t,e=this){if((t=E(this,t,e,0)??d)===v)return;let s=this._$AH,i=t===d&&s!==d||t.capture!==s.capture||t.once!==s.once||t.passive!==s.passive,o=t!==d&&(s===d||i);i&&this.element.removeEventListener(this.name,this,s),o&&this.element.addEventListener(this.name,this,t),this._$AH=t}handleEvent(t){typeof this._$AH=="function"?this._$AH.call(this.options?.host??this.element,t):this._$AH.handleEvent(t)}},it=class{constructor(t,e,s){this.element=t,this.type=6,this._$AN=void 0,this._$AM=e,this.options=s}get _$AU(){return this._$AM._$AU}_$AI(t){E(this,t)}};var te=rt.litHtmlPolyfillSupport;te?.(H,U),(rt.litHtmlVersions??=[]).push("3.3.3");var Pt=(r,t,e)=>{let s=e?.renderBefore??t,i=s._$litPart$;if(i===void 0){let o=e?.renderBefore??null;s._$litPart$=i=new U(t.insertBefore(B(),o),o,void 0,e??{})}return i._$AI(r),i};var at=globalThis,b=class extends g{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){let t=super.createRenderRoot();return this.renderOptions.renderBefore??=t.firstChild,t}update(t){let e=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(t),this._$Do=Pt(e,this.renderRoot,this.renderOptions)}connectedCallback(){super.connectedCallback(),this._$Do?.setConnected(!0)}disconnectedCallback(){super.disconnectedCallback(),this._$Do?.setConnected(!1)}render(){return v}};b._$litElement$=!0,b.finalized=!0,at.litElementHydrateSupport?.({LitElement:b});var ee=at.litElementPolyfillSupport;ee?.({LitElement:b});(at.litElementVersions??=[]).push("4.2.2");var se={attribute:!0,type:String,converter:R,reflect:!1,hasChanged:j},ie=(r=se,t,e)=>{let{kind:s,metadata:i}=e,o=globalThis.litPropertyMetadata.get(i);if(o===void 0&&globalThis.litPropertyMetadata.set(i,o=new Map),s==="setter"&&((r=Object.create(r)).wrapped=!0),o.set(e.name,r),s==="accessor"){let{name:n}=e;return{set(a){let l=t.get.call(this);t.set.call(this,a),this.requestUpdate(n,l,r,!0,a)},init(a){return a!==void 0&&this.C(n,void 0,r,a),a}}}if(s==="setter"){let{name:n}=e;return function(a){let l=this[n];t.call(this,a),this.requestUpdate(n,l,r,!0,a)}}throw Error("Unsupported decorator location: "+s)};function z(r){return(t,e)=>typeof e=="object"?ie(r,t,e):((s,i,o)=>{let n=i.hasOwnProperty(o);return i.constructor.createProperty(o,s),n?Object.getOwnPropertyDescriptor(i,o):void 0})(r,t,e)}function V(r){return z({...r,state:!0,attribute:!1})}var Rt={ATTRIBUTE:1,CHILD:2,PROPERTY:3,BOOLEAN_ATTRIBUTE:4,EVENT:5,ELEMENT:6},Mt=r=>(...t)=>({_$litDirective$:r,values:t}),Q=class{constructor(t){}get _$AU(){return this._$AM._$AU}_$AT(t,e,s){this._$Ct=t,this._$AM=e,this._$Ci=s}_$AS(t,e){return this.update(t,e)}update(t,e){return this.render(...e)}};var D=class extends Q{constructor(t){if(super(t),this.it=d,t.type!==Rt.CHILD)throw Error(this.constructor.directiveName+"() can only be used in child bindings")}render(t){if(t===d||t==null)return this._t=void 0,this.it=t;if(t===v)return t;if(typeof t!="string")throw Error(this.constructor.directiveName+"() called with a non-string value");if(t===this.it)return this._t;this.it=t;let e=[t];return e.raw=e,this._t={_$litType$:this.constructor.resultType,strings:e,values:[]}}};D.directiveName="unsafeHTML",D.resultType=1;var Bt=Mt(D);var Ot=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
-  <style>.ln { stroke: #111; stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; } .blue { fill: #55BBF8; }</style>
+var pt=Object.defineProperty;var ut=Object.getOwnPropertyDescriptor;var D=(i,e,t,r)=>{for(var n=r>1?void 0:r?ut(e,t):e,o=i.length-1,s;o>=0;o--)(s=i[o])&&(n=(r?s(e,t,n):s(n))||n);return r&&n&&pt(e,t,n),n};var J=globalThis,X=J.ShadowRoot&&(J.ShadyCSS===void 0||J.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,de=Symbol(),Be=new WeakMap,H=class{constructor(e,t,r){if(this._$cssResult$=!0,r!==de)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=e,this.t=t}get styleSheet(){let e=this.o,t=this.t;if(X&&e===void 0){let r=t!==void 0&&t.length===1;r&&(e=Be.get(t)),e===void 0&&((this.o=e=new CSSStyleSheet).replaceSync(this.cssText),r&&Be.set(t,e))}return e}toString(){return this.cssText}},Re=i=>new H(typeof i=="string"?i:i+"",void 0,de),pe=(i,...e)=>{let t=i.length===1?i[0]:e.reduce((r,n,o)=>r+(s=>{if(s._$cssResult$===!0)return s.cssText;if(typeof s=="number")return s;throw Error("Value passed to 'css' function must be a 'css' function result: "+s+". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.")})(n)+i[o+1],i[0]);return new H(t,i,de)},Pe=(i,e)=>{if(X)i.adoptedStyleSheets=e.map(t=>t instanceof CSSStyleSheet?t:t.styleSheet);else for(let t of e){let r=document.createElement("style"),n=J.litNonce;n!==void 0&&r.setAttribute("nonce",n),r.textContent=t.cssText,i.appendChild(r)}},ue=X?i=>i:i=>i instanceof CSSStyleSheet?(e=>{let t="";for(let r of e.cssRules)t+=r.cssText;return Re(t)})(i):i;var{is:ht,defineProperty:mt,getOwnPropertyDescriptor:yt,getOwnPropertyNames:ft,getOwnPropertySymbols:gt,getPrototypeOf:kt}=Object,ee=globalThis,Oe=ee.trustedTypes,xt=Oe?Oe.emptyScript:"",wt=ee.reactiveElementPolyfillSupport,F=(i,e)=>i,L={toAttribute(i,e){switch(e){case Boolean:i=i?xt:null;break;case Object:case Array:i=i==null?i:JSON.stringify(i)}return i},fromAttribute(i,e){let t=i;switch(e){case Boolean:t=i!==null;break;case Number:t=i===null?null:Number(i);break;case Object:case Array:try{t=JSON.parse(i)}catch{t=null}}return t}},te=(i,e)=>!ht(i,e),Me={attribute:!0,type:String,converter:L,reflect:!1,useDefault:!1,hasChanged:te};Symbol.metadata??=Symbol("metadata"),ee.litPropertyMetadata??=new WeakMap;var k=class extends HTMLElement{static addInitializer(e){this._$Ei(),(this.l??=[]).push(e)}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(e,t=Me){if(t.state&&(t.attribute=!1),this._$Ei(),this.prototype.hasOwnProperty(e)&&((t=Object.create(t)).wrapped=!0),this.elementProperties.set(e,t),!t.noAccessor){let r=Symbol(),n=this.getPropertyDescriptor(e,r,t);n!==void 0&&mt(this.prototype,e,n)}}static getPropertyDescriptor(e,t,r){let{get:n,set:o}=yt(this.prototype,e)??{get(){return this[t]},set(s){this[t]=s}};return{get:n,set(s){let l=n?.call(this);o?.call(this,s),this.requestUpdate(e,l,r)},configurable:!0,enumerable:!0}}static getPropertyOptions(e){return this.elementProperties.get(e)??Me}static _$Ei(){if(this.hasOwnProperty(F("elementProperties")))return;let e=kt(this);e.finalize(),e.l!==void 0&&(this.l=[...e.l]),this.elementProperties=new Map(e.elementProperties)}static finalize(){if(this.hasOwnProperty(F("finalized")))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(F("properties"))){let t=this.properties,r=[...ft(t),...gt(t)];for(let n of r)this.createProperty(n,t[n])}let e=this[Symbol.metadata];if(e!==null){let t=litPropertyMetadata.get(e);if(t!==void 0)for(let[r,n]of t)this.elementProperties.set(r,n)}this._$Eh=new Map;for(let[t,r]of this.elementProperties){let n=this._$Eu(t,r);n!==void 0&&this._$Eh.set(n,t)}this.elementStyles=this.finalizeStyles(this.styles)}static finalizeStyles(e){let t=[];if(Array.isArray(e)){let r=new Set(e.flat(1/0).reverse());for(let n of r)t.unshift(ue(n))}else e!==void 0&&t.push(ue(e));return t}static _$Eu(e,t){let r=t.attribute;return r===!1?void 0:typeof r=="string"?r:typeof e=="string"?e.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev()}_$Ev(){this._$ES=new Promise(e=>this.enableUpdating=e),this._$AL=new Map,this._$E_(),this.requestUpdate(),this.constructor.l?.forEach(e=>e(this))}addController(e){(this._$EO??=new Set).add(e),this.renderRoot!==void 0&&this.isConnected&&e.hostConnected?.()}removeController(e){this._$EO?.delete(e)}_$E_(){let e=new Map,t=this.constructor.elementProperties;for(let r of t.keys())this.hasOwnProperty(r)&&(e.set(r,this[r]),delete this[r]);e.size>0&&(this._$Ep=e)}createRenderRoot(){let e=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return Pe(e,this.constructor.elementStyles),e}connectedCallback(){this.renderRoot??=this.createRenderRoot(),this.enableUpdating(!0),this._$EO?.forEach(e=>e.hostConnected?.())}enableUpdating(e){}disconnectedCallback(){this._$EO?.forEach(e=>e.hostDisconnected?.())}attributeChangedCallback(e,t,r){this._$AK(e,r)}_$ET(e,t){let r=this.constructor.elementProperties.get(e),n=this.constructor._$Eu(e,r);if(n!==void 0&&r.reflect===!0){let o=(r.converter?.toAttribute!==void 0?r.converter:L).toAttribute(t,r.type);this._$Em=e,o==null?this.removeAttribute(n):this.setAttribute(n,o),this._$Em=null}}_$AK(e,t){let r=this.constructor,n=r._$Eh.get(e);if(n!==void 0&&this._$Em!==n){let o=r.getPropertyOptions(n),s=typeof o.converter=="function"?{fromAttribute:o.converter}:o.converter?.fromAttribute!==void 0?o.converter:L;this._$Em=n;let l=s.fromAttribute(t,o.type);this[n]=l??this._$Ej?.get(n)??l,this._$Em=null}}requestUpdate(e,t,r,n=!1,o){if(e!==void 0){let s=this.constructor;if(n===!1&&(o=this[e]),r??=s.getPropertyOptions(e),!((r.hasChanged??te)(o,t)||r.useDefault&&r.reflect&&o===this._$Ej?.get(e)&&!this.hasAttribute(s._$Eu(e,r))))return;this.C(e,t,r)}this.isUpdatePending===!1&&(this._$ES=this._$EP())}C(e,t,{useDefault:r,reflect:n,wrapped:o},s){r&&!(this._$Ej??=new Map).has(e)&&(this._$Ej.set(e,s??t??this[e]),o!==!0||s!==void 0)||(this._$AL.has(e)||(this.hasUpdated||r||(t=void 0),this._$AL.set(e,t)),n===!0&&this._$Em!==e&&(this._$Eq??=new Set).add(e))}async _$EP(){this.isUpdatePending=!0;try{await this._$ES}catch(t){Promise.reject(t)}let e=this.scheduleUpdate();return e!=null&&await e,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??=this.createRenderRoot(),this._$Ep){for(let[n,o]of this._$Ep)this[n]=o;this._$Ep=void 0}let r=this.constructor.elementProperties;if(r.size>0)for(let[n,o]of r){let{wrapped:s}=o,l=this[n];s!==!0||this._$AL.has(n)||l===void 0||this.C(n,void 0,o,l)}}let e=!1,t=this._$AL;try{e=this.shouldUpdate(t),e?(this.willUpdate(t),this._$EO?.forEach(r=>r.hostUpdate?.()),this.update(t)):this._$EM()}catch(r){throw e=!1,this._$EM(),r}e&&this._$AE(t)}willUpdate(e){}_$AE(e){this._$EO?.forEach(t=>t.hostUpdated?.()),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(e)),this.updated(e)}_$EM(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(e){return!0}update(e){this._$Eq&&=this._$Eq.forEach(t=>this._$ET(t,this[t])),this._$EM()}updated(e){}firstUpdated(e){}};k.elementStyles=[],k.shadowRootOptions={mode:"open"},k[F("elementProperties")]=new Map,k[F("finalized")]=new Map,wt?.({ReactiveElement:k}),(ee.reactiveElementVersions??=[]).push("2.1.2");var xe=globalThis,Ue=i=>i,re=xe.trustedTypes,De=re?re.createPolicy("lit-html",{createHTML:i=>i}):void 0,qe="$lit$",b=`lit$${Math.random().toFixed(9).slice(2)}$`,ze="?"+b,vt=`<${ze}>`,S=document,j=()=>S.createComment(""),q=i=>i===null||typeof i!="object"&&typeof i!="function",we=Array.isArray,bt=i=>we(i)||typeof i?.[Symbol.iterator]=="function",he=`[ 	
+\f\r]`,I=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,He=/-->/g,Fe=/>/g,E=RegExp(`>|${he}(?:([^\\s"'>=/]+)(${he}*=${he}*(?:[^ 	
+\f\r"'\`<>=]|("|')|))|$)`,"g"),Le=/'/g,Ie=/"/g,Ve=/^(?:script|style|textarea|title)$/i,ve=i=>(e,...t)=>({_$litType$:i,strings:e,values:t}),f=ve(1),Kt=ve(2),Zt=ve(3),x=Symbol.for("lit-noChange"),d=Symbol.for("lit-nothing"),je=new WeakMap,A=S.createTreeWalker(S,129);function We(i,e){if(!we(i)||!i.hasOwnProperty("raw"))throw Error("invalid template strings array");return De!==void 0?De.createHTML(e):e}var _t=(i,e)=>{let t=i.length-1,r=[],n,o=e===2?"<svg>":e===3?"<math>":"",s=I;for(let l=0;l<t;l++){let a=i[l],p,h,c=-1,y=0;for(;y<a.length&&(s.lastIndex=y,h=s.exec(a),h!==null);)y=s.lastIndex,s===I?h[1]==="!--"?s=He:h[1]!==void 0?s=Fe:h[2]!==void 0?(Ve.test(h[2])&&(n=RegExp("</"+h[2],"g")),s=E):h[3]!==void 0&&(s=E):s===E?h[0]===">"?(s=n??I,c=-1):h[1]===void 0?c=-2:(c=s.lastIndex-h[2].length,p=h[1],s=h[3]===void 0?E:h[3]==='"'?Ie:Le):s===Ie||s===Le?s=E:s===He||s===Fe?s=I:(s=E,n=void 0);let m=s===E&&i[l+1].startsWith("/>")?" ":"";o+=s===I?a+vt:c>=0?(r.push(p),a.slice(0,c)+qe+a.slice(c)+b+m):a+b+(c===-2?l:m)}return[We(i,o+(i[t]||"<?>")+(e===2?"</svg>":e===3?"</math>":"")),r]},z=class i{constructor({strings:e,_$litType$:t},r){let n;this.parts=[];let o=0,s=0,l=e.length-1,a=this.parts,[p,h]=_t(e,t);if(this.el=i.createElement(p,r),A.currentNode=this.el.content,t===2||t===3){let c=this.el.content.firstChild;c.replaceWith(...c.childNodes)}for(;(n=A.nextNode())!==null&&a.length<l;){if(n.nodeType===1){if(n.hasAttributes())for(let c of n.getAttributeNames())if(c.endsWith(qe)){let y=h[s++],m=n.getAttribute(c).split(b),g=/([.?@])?(.*)/.exec(y);a.push({type:1,index:o,name:g[2],strings:m,ctor:g[1]==="."?ye:g[1]==="?"?fe:g[1]==="@"?ge:O}),n.removeAttribute(c)}else c.startsWith(b)&&(a.push({type:6,index:o}),n.removeAttribute(c));if(Ve.test(n.tagName)){let c=n.textContent.split(b),y=c.length-1;if(y>0){n.textContent=re?re.emptyScript:"";for(let m=0;m<y;m++)n.append(c[m],j()),A.nextNode(),a.push({type:2,index:++o});n.append(c[y],j())}}}else if(n.nodeType===8)if(n.data===ze)a.push({type:2,index:o});else{let c=-1;for(;(c=n.data.indexOf(b,c+1))!==-1;)a.push({type:7,index:o}),c+=b.length-1}o++}}static createElement(e,t){let r=S.createElement("template");return r.innerHTML=e,r}};function P(i,e,t=i,r){if(e===x)return e;let n=r!==void 0?t._$Co?.[r]:t._$Cl,o=q(e)?void 0:e._$litDirective$;return n?.constructor!==o&&(n?._$AO?.(!1),o===void 0?n=void 0:(n=new o(i),n._$AT(i,t,r)),r!==void 0?(t._$Co??=[])[r]=n:t._$Cl=n),n!==void 0&&(e=P(i,n._$AS(i,e.values),n,r)),e}var me=class{constructor(e,t){this._$AV=[],this._$AN=void 0,this._$AD=e,this._$AM=t}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(e){let{el:{content:t},parts:r}=this._$AD,n=(e?.creationScope??S).importNode(t,!0);A.currentNode=n;let o=A.nextNode(),s=0,l=0,a=r[0];for(;a!==void 0;){if(s===a.index){let p;a.type===2?p=new V(o,o.nextSibling,this,e):a.type===1?p=new a.ctor(o,a.name,a.strings,this,e):a.type===6&&(p=new ke(o,this,e)),this._$AV.push(p),a=r[++l]}s!==a?.index&&(o=A.nextNode(),s++)}return A.currentNode=S,n}p(e){let t=0;for(let r of this._$AV)r!==void 0&&(r.strings!==void 0?(r._$AI(e,r,t),t+=r.strings.length-2):r._$AI(e[t])),t++}},V=class i{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(e,t,r,n){this.type=2,this._$AH=d,this._$AN=void 0,this._$AA=e,this._$AB=t,this._$AM=r,this.options=n,this._$Cv=n?.isConnected??!0}get parentNode(){let e=this._$AA.parentNode,t=this._$AM;return t!==void 0&&e?.nodeType===11&&(e=t.parentNode),e}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(e,t=this){e=P(this,e,t),q(e)?e===d||e==null||e===""?(this._$AH!==d&&this._$AR(),this._$AH=d):e!==this._$AH&&e!==x&&this._(e):e._$litType$!==void 0?this.$(e):e.nodeType!==void 0?this.T(e):bt(e)?this.k(e):this._(e)}O(e){return this._$AA.parentNode.insertBefore(e,this._$AB)}T(e){this._$AH!==e&&(this._$AR(),this._$AH=this.O(e))}_(e){this._$AH!==d&&q(this._$AH)?this._$AA.nextSibling.data=e:this.T(S.createTextNode(e)),this._$AH=e}$(e){let{values:t,_$litType$:r}=e,n=typeof r=="number"?this._$AC(e):(r.el===void 0&&(r.el=z.createElement(We(r.h,r.h[0]),this.options)),r);if(this._$AH?._$AD===n)this._$AH.p(t);else{let o=new me(n,this),s=o.u(this.options);o.p(t),this.T(s),this._$AH=o}}_$AC(e){let t=je.get(e.strings);return t===void 0&&je.set(e.strings,t=new z(e)),t}k(e){we(this._$AH)||(this._$AH=[],this._$AR());let t=this._$AH,r,n=0;for(let o of e)n===t.length?t.push(r=new i(this.O(j()),this.O(j()),this,this.options)):r=t[n],r._$AI(o),n++;n<t.length&&(this._$AR(r&&r._$AB.nextSibling,n),t.length=n)}_$AR(e=this._$AA.nextSibling,t){for(this._$AP?.(!1,!0,t);e!==this._$AB;){let r=Ue(e).nextSibling;Ue(e).remove(),e=r}}setConnected(e){this._$AM===void 0&&(this._$Cv=e,this._$AP?.(e))}},O=class{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(e,t,r,n,o){this.type=1,this._$AH=d,this._$AN=void 0,this.element=e,this.name=t,this._$AM=n,this.options=o,r.length>2||r[0]!==""||r[1]!==""?(this._$AH=Array(r.length-1).fill(new String),this.strings=r):this._$AH=d}_$AI(e,t=this,r,n){let o=this.strings,s=!1;if(o===void 0)e=P(this,e,t,0),s=!q(e)||e!==this._$AH&&e!==x,s&&(this._$AH=e);else{let l=e,a,p;for(e=o[0],a=0;a<o.length-1;a++)p=P(this,l[r+a],t,a),p===x&&(p=this._$AH[a]),s||=!q(p)||p!==this._$AH[a],p===d?e=d:e!==d&&(e+=(p??"")+o[a+1]),this._$AH[a]=p}s&&!n&&this.j(e)}j(e){e===d?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,e??"")}},ye=class extends O{constructor(){super(...arguments),this.type=3}j(e){this.element[this.name]=e===d?void 0:e}},fe=class extends O{constructor(){super(...arguments),this.type=4}j(e){this.element.toggleAttribute(this.name,!!e&&e!==d)}},ge=class extends O{constructor(e,t,r,n,o){super(e,t,r,n,o),this.type=5}_$AI(e,t=this){if((e=P(this,e,t,0)??d)===x)return;let r=this._$AH,n=e===d&&r!==d||e.capture!==r.capture||e.once!==r.once||e.passive!==r.passive,o=e!==d&&(r===d||n);n&&this.element.removeEventListener(this.name,this,r),o&&this.element.addEventListener(this.name,this,e),this._$AH=e}handleEvent(e){typeof this._$AH=="function"?this._$AH.call(this.options?.host??this.element,e):this._$AH.handleEvent(e)}},ke=class{constructor(e,t,r){this.element=e,this.type=6,this._$AN=void 0,this._$AM=t,this.options=r}get _$AU(){return this._$AM._$AU}_$AI(e){P(this,e)}};var Ct=xe.litHtmlPolyfillSupport;Ct?.(z,V),(xe.litHtmlVersions??=[]).push("3.3.3");var Qe=(i,e,t)=>{let r=t?.renderBefore??e,n=r._$litPart$;if(n===void 0){let o=t?.renderBefore??null;r._$litPart$=n=new V(e.insertBefore(j(),o),o,void 0,t??{})}return n._$AI(i),n};var be=globalThis,_=class extends k{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){let e=super.createRenderRoot();return this.renderOptions.renderBefore??=e.firstChild,e}update(e){let t=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(e),this._$Do=Qe(t,this.renderRoot,this.renderOptions)}connectedCallback(){super.connectedCallback(),this._$Do?.setConnected(!0)}disconnectedCallback(){super.disconnectedCallback(),this._$Do?.setConnected(!1)}render(){return x}};_._$litElement$=!0,_.finalized=!0,be.litElementHydrateSupport?.({LitElement:_});var $t=be.litElementPolyfillSupport;$t?.({LitElement:_});(be.litElementVersions??=[]).push("4.2.2");var Tt={attribute:!0,type:String,converter:L,reflect:!1,hasChanged:te},Et=(i=Tt,e,t)=>{let{kind:r,metadata:n}=t,o=globalThis.litPropertyMetadata.get(n);if(o===void 0&&globalThis.litPropertyMetadata.set(n,o=new Map),r==="setter"&&((i=Object.create(i)).wrapped=!0),o.set(t.name,i),r==="accessor"){let{name:s}=t;return{set(l){let a=e.get.call(this);e.set.call(this,l),this.requestUpdate(s,a,i,!0,l)},init(l){return l!==void 0&&this.C(s,void 0,i,l),l}}}if(r==="setter"){let{name:s}=t;return function(l){let a=this[s];e.call(this,l),this.requestUpdate(s,a,i,!0,l)}}throw Error("Unsupported decorator location: "+r)};function ie(i){return(e,t)=>typeof t=="object"?Et(i,e,t):((r,n,o)=>{let s=n.hasOwnProperty(o);return n.constructor.createProperty(o,r),s?Object.getOwnPropertyDescriptor(n,o):void 0})(i,e,t)}function ne(i){return ie({...i,state:!0,attribute:!1})}var Ke={ATTRIBUTE:1,CHILD:2,PROPERTY:3,BOOLEAN_ATTRIBUTE:4,EVENT:5,ELEMENT:6},Ze=i=>(...e)=>({_$litDirective$:i,values:e}),se=class{constructor(e){}get _$AU(){return this._$AM._$AU}_$AT(e,t,r){this._$Ct=e,this._$AM=t,this._$Ci=r}_$AS(e,t){return this.update(e,t)}update(e,t){return this.render(...t)}};var W=class extends se{constructor(e){if(super(e),this.it=d,e.type!==Ke.CHILD)throw Error(this.constructor.directiveName+"() can only be used in child bindings")}render(e){if(e===d||e==null)return this._t=void 0,this.it=e;if(e===x)return e;if(typeof e!="string")throw Error(this.constructor.directiveName+"() called with a non-string value");if(e===this.it)return this._t;this.it=e;let t=[e];return t.raw=t,this._t={_$litType$:this.constructor.resultType,strings:t,values:[]}}};W.directiveName="unsafeHTML",W.resultType=1;var Ge=Ze(W);var Ye=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" aria-hidden="true">
 
-  <defs>
-    <clipPath id="inside"><rect x="85" y="150" width="230" height="140"/></clipPath>
-  </defs>
+<line x1="105" y1="332" x2="105" y2="346" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="295" y1="332" x2="295" y2="346" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<rect class="paper" x="80" y="90" width="240" height="240" rx="20" stroke="currentColor" stroke-width="10"></rect>
+<line x1="80" y1="150" x2="320" y2="150" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="112" y1="108" x2="112" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="134" y1="108" x2="134" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="156" y1="108" x2="156" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="178" y1="108" x2="178" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="200" y1="108" x2="200" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
 
-  <!-- legs -->
-  <line class="ln" x1="105" y1="332" x2="105" y2="346"/>
-  <line class="ln" x1="295" y1="332" x2="295" y2="346"/>
+<line x1="80" y1="290" x2="320" y2="290" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="160" y1="172" x2="240" y2="172" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<circle cx="280" cy="120" r="19" fill="#55BBF8"></circle>
+<line x1="280" y1="120" x2="280" y2="109" stroke="#fff" stroke-width="4" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" values="0 280 120;360 280 120" dur="4s" repeatCount="indefinite"></animateTransform></line>
+<line x1="280" y1="120" x2="287" y2="120" stroke="#fff" stroke-width="4" stroke-linecap="round"></line>
 
-  <!-- body -->
-  <rect class="ln" x="80" y="90" width="240" height="240" rx="20" fill="#fff"/>
-  <line class="ln" x1="80" y1="150" x2="320" y2="150"/>
-  <line class="ln" x1="112" y1="108" x2="112" y2="132"/>
-  <line class="ln" x1="134" y1="108" x2="134" y2="132"/>
-  <line class="ln" x1="156" y1="108" x2="156" y2="132"/>
-  <line class="ln" x1="178" y1="108" x2="178" y2="132"/>
-  <line class="ln" x1="200" y1="108" x2="200" y2="132"/>
-  <circle class="blue" cx="280" cy="120" r="15">
-    <animate attributeName="r" dur="6s" repeatCount="indefinite" keyTimes="0;.04;.08;.12;1" values="15;15;19;15;15"/>
-  </circle>
-
-  <!-- plates (rise out of the rack) -->
-  <g clip-path="url(#inside)">
-    <g>
-      <animateTransform attributeName="transform" type="translate" dur="6s" repeatCount="indefinite"
-        values="0 140;0 140;0 0;0 0;0 140;0 140" keyTimes="0;0.28;0.4;0.7;0.76;1" calcMode="spline"
-        keySplines="0 0 1 1;.2 .8 .3 1;0 0 1 1;.5 0 .8 .4;0 0 1 1"/>
-      <circle cx="166" cy="244" r="52" fill="#fff" stroke="#111" stroke-width="10"/>
-      <circle class="blue" cx="166" cy="244" r="37"/>
-    </g>
-    <g>
-      <animateTransform attributeName="transform" type="translate" dur="6s" repeatCount="indefinite"
-        values="0 140;0 140;0 0;0 0;0 140;0 140" keyTimes="0;0.32;0.44;0.68;0.74;1" calcMode="spline"
-        keySplines="0 0 1 1;.2 .8 .3 1;0 0 1 1;.5 0 .8 .4;0 0 1 1"/>
-      <circle cx="236" cy="244" r="52" fill="#fff" stroke="#111" stroke-width="10"/>
-      <circle class="blue" cx="236" cy="244" r="37"/>
-    </g>
-  </g>
-
-    <!-- soap bubbles -->
-  <g clip-path="url(#inside)">
-    <g opacity="0">
-      <animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.40;0.44;0.57;0.59;1" values="0;0;1;1;0;0"/>
-      <animateTransform attributeName="transform" type="translate" dur="6s" repeatCount="indefinite" keyTimes="0;0.40;0.44;0.57;0.59;1" values="0 0;0 0;2.0 -15;6 -122;6 -128;6 -128"/>
-      <circle cx="110" cy="280" r="9" fill="#fff" stroke="#55BBF8" stroke-width="4"/>
-      <path d="M105.0,279.1 A5.0,5.0 0 0 1 109.1,275.1" fill="none" stroke="#55BBF8" stroke-width="2.5" stroke-linecap="round"/>
-    </g>
-    <g opacity="0">
-      <animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.44;0.48;0.61;0.63;1" values="0;0;1;1;0;0"/>
-      <animateTransform attributeName="transform" type="translate" dur="6s" repeatCount="indefinite" keyTimes="0;0.44;0.48;0.61;0.63;1" values="0 0;0 0;-1.3 -15;-4 -113;-4 -119;-4 -119"/>
-      <circle cx="140" cy="285" r="6" fill="#fff" stroke="#55BBF8" stroke-width="4"/>
-      <path d="M136.7,284.4 A3.3,3.3 0 0 1 139.4,281.7" fill="none" stroke="#55BBF8" stroke-width="2.5" stroke-linecap="round"/>
-    </g>
-    <g opacity="0">
-      <animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.42;0.46;0.59;0.61;1" values="0;0;1;1;0;0"/>
-      <animateTransform attributeName="transform" type="translate" dur="6s" repeatCount="indefinite" keyTimes="0;0.42;0.46;0.59;0.61;1" values="0 0;0 0;1.7 -15;5 -128;5 -134;5 -134"/>
-      <circle cx="200" cy="282" r="11" fill="#fff" stroke="#55BBF8" stroke-width="4"/>
-      <path d="M193.9,280.9 A6.1,6.1 0 0 1 198.9,275.9" fill="none" stroke="#55BBF8" stroke-width="2.5" stroke-linecap="round"/>
-    </g>
-    <g opacity="0">
-      <animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.47;0.51;0.64;0.66;1" values="0;0;1;1;0;0"/>
-      <animateTransform attributeName="transform" type="translate" dur="6s" repeatCount="indefinite" keyTimes="0;0.47;0.51;0.64;0.66;1" values="0 0;0 0;-2.0 -15;-6 -116;-6 -122;-6 -122"/>
-      <circle cx="258" cy="284" r="7" fill="#fff" stroke="#55BBF8" stroke-width="4"/>
-      <path d="M254.2,283.3 A3.9,3.9 0 0 1 257.3,280.1" fill="none" stroke="#55BBF8" stroke-width="2.5" stroke-linecap="round"/>
-    </g>
-    <g opacity="0">
-      <animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.41;0.45;0.58;0.60;1" values="0;0;1;1;0;0"/>
-      <animateTransform attributeName="transform" type="translate" dur="6s" repeatCount="indefinite" keyTimes="0;0.41;0.45;0.58;0.60;1" values="0 0;0 0;-1.7 -15;-5 -125;-5 -131;-5 -131"/>
-      <circle cx="292" cy="280" r="10" fill="#fff" stroke="#55BBF8" stroke-width="4"/>
-      <path d="M286.5,279.0 A5.5,5.5 0 0 1 291.0,274.5" fill="none" stroke="#55BBF8" stroke-width="2.5" stroke-linecap="round"/>
-    </g>
-    <g opacity="0">
-      <animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.50;0.54;0.67;0.69;1" values="0;0;1;1;0;0"/>
-      <animateTransform attributeName="transform" type="translate" dur="6s" repeatCount="indefinite" keyTimes="0;0.50;0.54;0.67;0.69;1" values="0 0;0 0;1.3 -15;4 -110;4 -116;4 -116"/>
-      <circle cx="175" cy="286" r="5" fill="#fff" stroke="#55BBF8" stroke-width="4"/>
-      <path d="M172.2,285.5 A2.8,2.8 0 0 1 174.5,283.2" fill="none" stroke="#55BBF8" stroke-width="2.5" stroke-linecap="round"/>
-    </g>
-    <g opacity="0">
-      <animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.53;0.57;0.70;0.72;1" values="0;0;1;1;0;0"/>
-      <animateTransform attributeName="transform" type="translate" dur="6s" repeatCount="indefinite" keyTimes="0;0.53;0.57;0.70;0.72;1" values="0 0;0 0;-1.0 -15;-3 -119;-3 -125;-3 -125"/>
-      <circle cx="225" cy="286" r="8" fill="#fff" stroke="#55BBF8" stroke-width="4"/>
-      <path d="M220.6,285.2 A4.4,4.4 0 0 1 224.2,281.6" fill="none" stroke="#55BBF8" stroke-width="2.5" stroke-linecap="round"/>
-    </g>
-    <g opacity="0">
-      <animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.56;0.60;0.73;0.75;1" values="0;0;1;1;0;0"/>
-      <animateTransform attributeName="transform" type="translate" dur="6s" repeatCount="indefinite" keyTimes="0;0.56;0.60;0.73;0.75;1" values="0 0;0 0;1.7 -15;5 -116;5 -122;5 -122"/>
-      <circle cx="120" cy="284" r="7" fill="#fff" stroke="#55BBF8" stroke-width="4"/>
-      <path d="M116.2,283.3 A3.9,3.9 0 0 1 119.3,280.1" fill="none" stroke="#55BBF8" stroke-width="2.5" stroke-linecap="round"/>
-    </g>
-    <g opacity="0">
-      <animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.58;0.62;0.75;0.77;1" values="0;0;1;1;0;0"/>
-      <animateTransform attributeName="transform" type="translate" dur="6s" repeatCount="indefinite" keyTimes="0;0.58;0.62;0.75;0.77;1" values="0 0;0 0;-1.3 -15;-4 -113;-4 -119;-4 -119"/>
-      <circle cx="285" cy="286" r="6" fill="#fff" stroke="#55BBF8" stroke-width="4"/>
-      <path d="M281.7,285.4 A3.3,3.3 0 0 1 284.4,282.7" fill="none" stroke="#55BBF8" stroke-width="2.5" stroke-linecap="round"/>
-    </g>
-    <g opacity="0">
-      <animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.61;0.65;0.78;0.80;1" values="0;0;1;1;0;0"/>
-      <animateTransform attributeName="transform" type="translate" dur="6s" repeatCount="indefinite" keyTimes="0;0.61;0.65;0.78;0.80;1" values="0 0;0 0;1.0 -15;3 -113;3 -119;3 -119"/>
-      <circle cx="205" cy="286" r="6" fill="#fff" stroke="#55BBF8" stroke-width="4"/>
-      <path d="M201.7,285.4 A3.3,3.3 0 0 1 204.4,282.7" fill="none" stroke="#55BBF8" stroke-width="2.5" stroke-linecap="round"/>
-    </g>
-  </g>
-
-  <!-- door: real hinge rotation around the bottom edge (top tips toward you) -->
-  <polygon class="ln" fill="#fff" points="80,290 320,290 320.0,150.0 80.0,150.0">
-    <animate attributeName="points" dur="6s" repeatCount="indefinite" calcMode="linear" keyTimes="0.0000;0.1400;0.1500;0.1600;0.1700;0.1800;0.1900;0.2000;0.2100;0.2200;0.2300;0.2400;0.2500;0.2600;0.2700;0.2800;0.7800;0.7886;0.7971;0.8057;0.8143;0.8229;0.8314;0.8400;0.8486;0.8571;0.8657;0.8743;0.8829;0.8914;0.9000;1.0000" values="80,290 320,290 320.0,150.0 80.0,150.0;80,290 320,290 320.0,150.0 80.0,150.0;80,290 320,290 321.2,150.6 78.8,150.6;80,290 320,290 324.7,152.8 75.3,152.8;80,290 320,290 330.0,157.2 70.0,157.2;80,290 320,290 336.5,164.7 63.5,164.7;80,290 320,290 343.9,175.9 56.1,175.9;80,290 320,290 351.3,191.0 48.7,191.0;80,290 320,290 358.2,209.4 41.8,209.4;80,290 320,290 364.0,230.0 36.0,230.0;80,290 320,290 368.4,251.4 31.6,251.4;80,290 320,290 371.4,271.9 28.6,271.9;80,290 320,290 373.1,289.7 26.9,289.7;80,290 320,290 373.8,303.7 26.2,303.7;80,290 320,290 374.0,312.8 26.0,312.8;80,290 320,290 374.0,316.0 26.0,316.0;80,290 320,290 374.0,316.0 26.0,316.0;80,290 320,290 374.0,312.8 26.0,312.8;80,290 320,290 373.8,303.7 26.2,303.7;80,290 320,290 373.1,289.7 26.9,289.7;80,290 320,290 371.4,271.9 28.6,271.9;80,290 320,290 368.4,251.4 31.6,251.4;80,290 320,290 364.0,230.0 36.0,230.0;80,290 320,290 358.2,209.4 41.8,209.4;80,290 320,290 351.3,191.0 48.7,191.0;80,290 320,290 343.9,175.9 56.1,175.9;80,290 320,290 336.5,164.7 63.5,164.7;80,290 320,290 330.0,157.2 70.0,157.2;80,290 320,290 324.7,152.8 75.3,152.8;80,290 320,290 321.2,150.6 78.8,150.6;80,290 320,290 320.0,150.0 80.0,150.0;80,290 320,290 320.0,150.0 80.0,150.0"/>
-  </polygon>
-  <line class="ln" x1="160" y1="172" x2="240" y2="172">
-    <animate attributeName="x1" dur="6s" repeatCount="indefinite" keyTimes="0.0000;0.1400;0.1500;0.1600;0.1700;0.1800;0.1900;0.2000;0.2100;0.2200;0.2300;0.2400;0.2500;0.2600;0.2700;0.2800;0.7800;0.7886;0.7971;0.8057;0.8143;0.8229;0.8314;0.8400;0.8486;0.8571;0.8657;0.8743;0.8829;0.8914;0.9000;1.0000" values="160.0;160.0;159.7;158.7;157.2;155.4;153.3;151.2;149.3;147.6;146.4;145.6;145.1;144.9;144.8;144.8;144.8;144.8;144.9;145.1;145.6;146.4;147.6;149.3;151.2;153.3;155.4;157.2;158.7;159.7;160.0;160.0"/>
-    <animate attributeName="x2" dur="6s" repeatCount="indefinite" keyTimes="0.0000;0.1400;0.1500;0.1600;0.1700;0.1800;0.1900;0.2000;0.2100;0.2200;0.2300;0.2400;0.2500;0.2600;0.2700;0.2800;0.7800;0.7886;0.7971;0.8057;0.8143;0.8229;0.8314;0.8400;0.8486;0.8571;0.8657;0.8743;0.8829;0.8914;0.9000;1.0000" values="240.0;240.0;240.3;241.3;242.8;244.6;246.7;248.8;250.7;252.4;253.6;254.4;254.9;255.1;255.2;255.2;255.2;255.2;255.1;254.9;254.4;253.6;252.4;250.7;248.8;246.7;244.6;242.8;241.3;240.3;240.0;240.0"/>
-    <animate attributeName="y1" dur="6s" repeatCount="indefinite" keyTimes="0.0000;0.1400;0.1500;0.1600;0.1700;0.1800;0.1900;0.2000;0.2100;0.2200;0.2300;0.2400;0.2500;0.2600;0.2700;0.2800;0.7800;0.7886;0.7971;0.8057;0.8143;0.8229;0.8314;0.8400;0.8486;0.8571;0.8657;0.8743;0.8829;0.8914;0.9000;1.0000" values="172.0;172.0;172.5;174.4;178.1;184.4;193.8;206.5;222.1;239.5;257.5;274.7;289.8;301.6;309.2;311.9;311.9;309.2;301.6;289.8;274.7;257.5;239.5;222.1;206.5;193.8;184.4;178.1;174.4;172.5;172.0;172.0"/>
-    <animate attributeName="y2" dur="6s" repeatCount="indefinite" keyTimes="0.0000;0.1400;0.1500;0.1600;0.1700;0.1800;0.1900;0.2000;0.2100;0.2200;0.2300;0.2400;0.2500;0.2600;0.2700;0.2800;0.7800;0.7886;0.7971;0.8057;0.8143;0.8229;0.8314;0.8400;0.8486;0.8571;0.8657;0.8743;0.8829;0.8914;0.9000;1.0000" values="172.0;172.0;172.5;174.4;178.1;184.4;193.8;206.5;222.1;239.5;257.5;274.7;289.8;301.6;309.2;311.9;311.9;309.2;301.6;289.8;274.7;257.5;239.5;222.1;206.5;193.8;184.4;178.1;174.4;172.5;172.0;172.0"/>
-    <animate attributeName="opacity" dur="6s" repeatCount="indefinite" calcMode="discrete" keyTimes="0.0000;0.1400;0.1500;0.1600;0.1700;0.1800;0.1900;0.2000;0.2100;0.2200;0.2300;0.2400;0.2500;0.2600;0.2700;0.2800;0.7800;0.7886;0.7971;0.8057;0.8143;0.8229;0.8314;0.8400;0.8486;0.8571;0.8657;0.8743;0.8829;0.8914;0.9000;1.0000" values="1;1;1;1;1;1;1;1;1;1;1;1;1;0;0;0;0;0;0;1;1;1;1;1;1;1;1;1;1;1;1;1"/>
-  </line>
-
-
-  <!-- sparkles -->
-  <g transform="translate(300 190)"><path class="blue" d="M0,-14 Q2.1,-2.1 14,0 Q2.1,2.1 0,14 Q-2.1,2.1 -14,0 Q-2.1,-2.1 0,-14Z" opacity="0">
-    <animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.46;0.52;0.62;1" values="0;0;1;0;0"/>
-    <animateTransform attributeName="transform" type="scale" dur="6s" repeatCount="indefinite" keyTimes="0;0.46;0.52;0.62;1" values="0;0;1.2;0;0"/>
-    <animateTransform attributeName="transform" type="rotate" additive="sum" dur="6s" repeatCount="indefinite" keyTimes="0;0.46;0.52;0.62;1" values="0;0;45;135;135"/>
-  </path></g>
-  <g transform="translate(118 177)"><path class="blue" d="M0,-9 Q1.3,-1.3 9,0 Q1.3,1.3 0,9 Q-1.3,1.3 -9,0 Q-1.3,-1.3 0,-9Z" opacity="0">
-    <animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.5;0.56;0.66;1" values="0;0;1;0;0"/>
-    <animateTransform attributeName="transform" type="scale" dur="6s" repeatCount="indefinite" keyTimes="0;0.5;0.56;0.66;1" values="0;0;1.2;0;0"/>
-    <animateTransform attributeName="transform" type="rotate" additive="sum" dur="6s" repeatCount="indefinite" keyTimes="0;0.5;0.56;0.66;1" values="0;0;45;135;135"/>
-  </path></g>
-  <g transform="translate(205 169)"><path class="blue" d="M0,-9 Q1.3,-1.3 9,0 Q1.3,1.3 0,9 Q-1.3,1.3 -9,0 Q-1.3,-1.3 0,-9Z" opacity="0">
-    <animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.53;0.5900000000000001;0.6900000000000001;1" values="0;0;1;0;0"/>
-    <animateTransform attributeName="transform" type="scale" dur="6s" repeatCount="indefinite" keyTimes="0;0.53;0.5900000000000001;0.6900000000000001;1" values="0;0;1.2;0;0"/>
-    <animateTransform attributeName="transform" type="rotate" additive="sum" dur="6s" repeatCount="indefinite" keyTimes="0;0.53;0.5900000000000001;0.6900000000000001;1" values="0;0;45;135;135"/>
-  </path></g>
 </svg>
-`;var lt={salt:{domain:"binary_sensor",key:"dishwasher_salt_empty",match:/salt_empty$/},rinse_aid:{domain:"binary_sensor",key:"dishwasher_rinse_aid_empty",match:/rinse_aid_empty$/},door:{domain:"binary_sensor",key:"dishwasher_door",match:/_door$/},start:{domain:"button",key:"dishwasher_start_button",match:/start(_button)?$|_start_/},stop:{domain:"button",key:"dishwasher_stop_button",match:/stop(_button)?$|_stop_/}},ne={entity:"Dishwasher status sensor (Candy)",name:"Name",needs_emptying:"Needs emptying (binary sensor, optional)",hide_controls:"Hide Start / Stop",salt:"Salt empty",rinse_aid:"Rinse aid empty",door:"Door",start:"Start button",stop:"Stop button"},G=["Pre-wash","Wash","Rinse","Drying"],Ht="Delayed start programmed",Ut=new Set(["unavailable","unknown"]),Dt={en:{title:"Dishwasher",idle:"Idle",offline:"Not reachable",finished:"Finished",delayed:"Delayed start",startsIn:r=>`Starts in ${r} h`,endsAt:r=>`Ends at ${r}`,minutes:r=>`${r} min`,finishedAt:(r,t)=>`Finished at ${r} \xB7 ${t} ago`,needsEmptying:"Needs emptying",stages:{"Pre-wash":"Pre-wash",Wash:"Wash",Rinse:"Rinse",Drying:"Drying"},salt:"Salt empty",rinseAid:"Rinse aid empty",door:"Door open",eco:"Eco",start:"Start",stop:"Stop",confirmStop:"Tap again to stop",missing:"Entity not found"},it:{title:"Lavastoviglie",idle:"In attesa",offline:"Non raggiungibile",finished:"Finita",delayed:"Partenza ritardata",startsIn:r=>`Parte tra ${r} h`,endsAt:r=>`Fine alle ${r}`,minutes:r=>`${r} min`,finishedAt:(r,t)=>`Finita alle ${r} \xB7 ${t} fa`,needsEmptying:"Da svuotare",stages:{"Pre-wash":"Prelavaggio",Wash:"Lavaggio",Rinse:"Risciacquo",Drying:"Asciugatura"},salt:"Sale finito",rinseAid:"Brillantante finito",door:"Porta aperta",eco:"Eco",start:"Avvia",stop:"Interrompi",confirmStop:"Tocca di nuovo per fermare",missing:"Entit\xE0 non trovata"}},k=class extends b{constructor(){super(...arguments);this.armedStop=!1;this.tick=0;this.reducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)");this.onMotionChange=()=>this.requestUpdate()}static getConfigForm(){let e=(s,i)=>({name:s,selector:{entity:{filter:{domain:i}}}});return{schema:[{name:"entity",required:!0,selector:{entity:{filter:{domain:"sensor",integration:"candy"}}}},{name:"name",selector:{text:{}}},e("needs_emptying","binary_sensor"),{name:"hide_controls",selector:{boolean:{}}},{type:"expandable",name:"",title:"Entities (found automatically on the dishwasher's device)",schema:[e("salt","binary_sensor"),e("rinse_aid","binary_sensor"),e("door","binary_sensor"),e("start","button"),e("stop","button")]}],computeLabel:s=>ne[s.name]}}static getStubConfig(e){return{entity:Object.values(e.entities).find(i=>i.platform==="candy"&&i.entity_id.startsWith("sensor.")&&"salt_empty"in(e.states[i.entity_id]?.attributes??{}))?.entity_id??"sensor.dishwasher"}}setConfig(e){if(!e.entity)throw new Error("entity is required: the Candy dishwasher status sensor");this.config=e}getCardSize(){return 3}connectedCallback(){super.connectedCallback(),this.clock=window.setInterval(()=>this.tick++,6e4),this.reducedMotion.addEventListener("change",this.onMotionChange)}disconnectedCallback(){super.disconnectedCallback(),window.clearTimeout(this.armedTimer),window.clearInterval(this.clock),this.reducedMotion.removeEventListener("change",this.onMotionChange)}get t(){return(this.hass?.locale.language.split("-")[0]??"en")==="it"?Dt.it:Dt.en}entities(){let e=this.hass,s=this.config,i=e.entities[s.entity]?.device_id,o=i?Object.values(e.entities).filter(a=>a.device_id===i&&a.platform==="candy"):[],n={};for(let a of Object.keys(lt)){let{domain:l,key:p,match:u}=lt[a],c=o.filter(f=>f.entity_id.startsWith(`${l}.`)),m=s[a]??(c.find(f=>f.translation_key===p)??c.find(f=>u.test(f.entity_id)))?.entity_id;m&&e.states[m]&&(n[a]=e.states[m])}return n}shouldUpdate(e){if(!e.has("hass")||e.size>1)return!0;let s=e.get("hass");if(!s||!this.hass||!this.config||s.locale!==this.hass.locale||s.entities!==this.hass.entities)return!0;let i=this.config;return[i.entity,i.needs_emptying,...Object.keys(lt).map(n=>i[n]),...Object.values(this.entities()).map(n=>n.entity_id)].filter(n=>!!n).some(n=>s.states[n]!==this.hass.states[n])}updated(){let e=this.renderRoot.querySelector(".art svg");if(!e||!this.hass||!this.config)return;G.includes(this.hass.states[this.config.entity]?.state??"")&&!this.reducedMotion.matches?e.unpauseAnimations():(e.pauseAnimations(),e.setCurrentTime(0))}time(e){return new Date(e).toLocaleTimeString(this.hass?.locale.language,{hour:"2-digit",minute:"2-digit"})}ago(e){let s=Math.max(0,Math.round((Date.now()-new Date(e).getTime())/6e4));return s<60?`${s} min`:s<2880?`${Math.round(s/60)} h`:`${Math.round(s/1440)} d`}moreInfo(e){this.dispatchEvent(new CustomEvent("hass-more-info",{detail:{entityId:e},bubbles:!0,composed:!0}))}send(e){Promise.resolve(this.hass.callService("button","press",{entity_id:e.entity_id})).catch(()=>{})}press(e,s){e.stopPropagation(),this.send(s)}pressStop(e,s){if(e.stopPropagation(),window.clearTimeout(this.armedTimer),!this.armedStop){this.armedStop=!0,this.armedTimer=window.setTimeout(()=>this.armedStop=!1,3e3);return}this.armedStop=!1,this.send(s)}render(){if(!this.hass||!this.config)return d;let e=this.t,s=this.hass.states[this.config.entity];if(!s)return y`<ha-card><div class="missing">${e.missing}: ${this.config.entity}</div></ha-card>`;let i=this.entities(),o=this.config.needs_emptying?this.hass.states[this.config.needs_emptying]:void 0,n=s.attributes,a=s.state,l=G.includes(a),p=o?.state==="on",u="idle",c,m=d;if(l){u="running";let h=a,S=Number(n.remaining_minutes??0),pt=S>0?new Date(Date.now()+S*6e4).toISOString():void 0;c=e.stages[h],m=y`
-        <div class="stepper">
-          ${G.map((Lt,ut)=>{let mt=G.indexOf(h),Ft=ut<mt?"done":ut===mt?"current":"";return y`<div class="step ${Ft}"><span></span><label>${e.stages[Lt]}</label></div>`})}
-        </div>
-        <div class="row">
-          <span class="big">${pt?e.endsAt(this.time(pt)):d}</span>
-          <span class="muted">${S>0?e.minutes(S):d}</span>
-        </div>`}else if(a==="Finished"||p){u=p?"attention":"done";let h=o?.attributes.finished_at??(a==="Finished"?s.last_changed:void 0);c=h?e.finishedAt(this.time(h),this.ago(h)):e.finished,p&&(m=y`<div class="big">${e.needsEmptying}</div>`)}else if(a===Ht){u="running";let h=Number(n.delayed_start_hours??0);c=h>0?e.startsIn(h):e.delayed}else Ut.has(a)?c=e.offline:c=e.idle;let f=[n.program,n.eco_mode?e.eco:void 0].filter(Boolean).join(" \xB7 "),_=(h,S)=>i[h]?i[h].state==="on":n[S]===!0,ct=[_("salt","salt_empty")&&e.salt,_("rinse_aid","rinse_aid_empty")&&e.rinseAid,l&&_("door","door_open")&&e.door].filter(h=>!!h),dt=h=>h&&h.state!=="unavailable",ht=this.config.hide_controls?[]:[(a==="Idle"||a==="Finished")&&dt(i.start)?y`<button @click=${h=>this.press(h,i.start)}>
-                <ha-icon icon="mdi:play"></ha-icon>${e.start}
-              </button>`:d,(l||a===Ht)&&dt(i.stop)?y`<button class=${this.armedStop?"armed":""}
-                @click=${h=>this.pressStop(h,i.stop)}>
-                <ha-icon icon="mdi:stop"></ha-icon>${this.armedStop?e.confirmStop:e.stop}
-              </button>`:d];return y`
-      <ha-card class=${u} @click=${()=>this.moreInfo(this.config.entity)}>
+`;var Je=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" aria-hidden="true">
+<line x1="105" y1="332" x2="105" y2="346" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="295" y1="332" x2="295" y2="346" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<rect class="paper" x="80" y="90" width="240" height="240" rx="20" stroke="currentColor" stroke-width="10"></rect>
+<line x1="80" y1="150" x2="320" y2="150" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="112" y1="108" x2="112" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="134" y1="108" x2="134" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="156" y1="108" x2="156" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="178" y1="108" x2="178" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="200" y1="108" x2="200" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<clipPath id="cd"><rect x="85" y="150" width="230" height="140"></rect></clipPath>
+<g clip-path="url(#cd)"><g><animateTransform attributeName="transform" type="translate" dur="6s" repeatCount="indefinite" values="0 140;0 140;0 0;0 0;0 140;0 140" keyTimes="0;0.28;0.4;0.7;0.76;1" calcMode="spline" keySplines="0 0 1 1;.2 .8 .3 1;0 0 1 1;.5 0 .8 .4;0 0 1 1"></animateTransform>
+<circle class="paper" cx="166" cy="244" r="52" stroke="currentColor" stroke-width="10"></circle><circle cx="166" cy="244" r="37" fill="#55BBF8"></circle></g><g><animateTransform attributeName="transform" type="translate" dur="6s" repeatCount="indefinite" values="0 140;0 140;0 0;0 0;0 140;0 140" keyTimes="0;0.32;0.44;0.68;0.74;1" calcMode="spline" keySplines="0 0 1 1;.2 .8 .3 1;0 0 1 1;.5 0 .8 .4;0 0 1 1"></animateTransform>
+<circle class="paper" cx="236" cy="244" r="52" stroke="currentColor" stroke-width="10"></circle><circle cx="236" cy="244" r="37" fill="#55BBF8"></circle></g>
+<g opacity="0"><animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.40;0.44;0.57;0.59;1" values="0;0;1;1;0;0"></animate><animateTransform attributeName="transform" type="translate" dur="6s" repeatCount="indefinite" keyTimes="0;0.40;0.44;0.57;0.59;1" values="0 0;0 0;2 -15;6 -122;6 -128;6 -128"></animateTransform><circle class="paper" cx="110" cy="280" r="9" stroke="#55BBF8" stroke-width="4"></circle></g>
+<g opacity="0"><animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.42;0.46;0.59;0.61;1" values="0;0;1;1;0;0"></animate><animateTransform attributeName="transform" type="translate" dur="6s" repeatCount="indefinite" keyTimes="0;0.42;0.46;0.59;0.61;1" values="0 0;0 0;2 -15;5 -128;5 -134;5 -134"></animateTransform><circle class="paper" cx="200" cy="282" r="11" stroke="#55BBF8" stroke-width="4"></circle></g>
+<g opacity="0"><animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.41;0.45;0.58;0.60;1" values="0;0;1;1;0;0"></animate><animateTransform attributeName="transform" type="translate" dur="6s" repeatCount="indefinite" keyTimes="0;0.41;0.45;0.58;0.60;1" values="0 0;0 0;-2 -15;-5 -125;-5 -131;-5 -131"></animateTransform><circle class="paper" cx="292" cy="280" r="10" stroke="#55BBF8" stroke-width="4"></circle></g>
+<g opacity="0"><animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.48;0.52;0.65;0.67;1" values="0;0;1;1;0;0"></animate><animateTransform attributeName="transform" type="translate" dur="6s" repeatCount="indefinite" keyTimes="0;0.48;0.52;0.65;0.67;1" values="0 0;0 0;-1 -15;-4 -113;-4 -119;-4 -119"></animateTransform><circle class="paper" cx="150" cy="285" r="6" stroke="#55BBF8" stroke-width="4"></circle></g>
+<g opacity="0"><animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.52;0.56;0.69;0.71;1" values="0;0;1;1;0;0"></animate><animateTransform attributeName="transform" type="translate" dur="6s" repeatCount="indefinite" keyTimes="0;0.52;0.56;0.69;0.71;1" values="0 0;0 0;-2 -15;-6 -116;-6 -122;-6 -122"></animateTransform><circle class="paper" cx="255" cy="284" r="7" stroke="#55BBF8" stroke-width="4"></circle></g>
+<g opacity="0"><animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.58;0.62;0.75;0.77;1" values="0;0;1;1;0;0"></animate><animateTransform attributeName="transform" type="translate" dur="6s" repeatCount="indefinite" keyTimes="0;0.58;0.62;0.75;0.77;1" values="0 0;0 0;1 -15;3 -113;3 -119;3 -119"></animateTransform><circle class="paper" cx="205" cy="286" r="6" stroke="#55BBF8" stroke-width="4"></circle></g>
+</g>
+<circle cx="280" cy="120" r="15" fill="#55BBF8"></circle>
+<polygon class="paper" points="80,290 320,290 320,150 80,150" stroke="currentColor" stroke-width="10" stroke-linejoin="round"><animate attributeName="points" dur="6s" repeatCount="indefinite" keyTimes="0.000;0.140;0.158;0.175;0.193;0.210;0.228;0.245;0.263;0.280;0.780;0.780;0.795;0.810;0.825;0.840;0.855;0.870;0.885;0.900;1.000" values="80,290 320,290 320,150 80,150;80,290 320,290 320,150 80,150;80,290 320,290 324,152 76,152;80,290 320,290 333,161 67,161;80,290 320,290 346,179 54,179;80,290 320,290 358,209 42,209;80,290 320,290 367,246 33,246;80,290 320,290 372,281 28,281;80,290 320,290 374,306 26,306;80,290 320,290 374,316 26,316;80,290 320,290 374,316 26,316;80,290 320,290 374,316 26,316;80,290 320,290 374,306 26,306;80,290 320,290 372,281 28,281;80,290 320,290 367,246 33,246;80,290 320,290 358,209 42,209;80,290 320,290 346,179 54,179;80,290 320,290 333,161 67,161;80,290 320,290 324,152 76,152;80,290 320,290 320,150 80,150;80,290 320,290 320,150 80,150"></animate></polygon>
+<line x1="160" y1="172" x2="240" y2="172" stroke="currentColor" stroke-width="10" stroke-linecap="round"><animate attributeName="x1" dur="6s" repeatCount="indefinite" keyTimes="0.000;0.140;0.158;0.175;0.193;0.210;0.228;0.245;0.263;0.280;0.780;0.780;0.795;0.810;0.825;0.840;0.855;0.870;0.885;0.900;1.000" values="160;160;159;156;153;149;147;145;145;145;145;145;145;145;147;149;153;156;159;160;160"></animate><animate attributeName="x2" dur="6s" repeatCount="indefinite" keyTimes="0.000;0.140;0.158;0.175;0.193;0.210;0.228;0.245;0.263;0.280;0.780;0.780;0.795;0.810;0.825;0.840;0.855;0.870;0.885;0.900;1.000" values="240;240;241;244;247;251;253;255;255;255;255;255;255;255;253;251;247;244;241;240;240"></animate><animate attributeName="y1" dur="6s" repeatCount="indefinite" keyTimes="0.000;0.140;0.158;0.175;0.193;0.210;0.228;0.245;0.263;0.280;0.780;0.780;0.795;0.810;0.825;0.840;0.855;0.870;0.885;0.900;1.000" values="172;172;174;181;197;222;253;283;304;312;312;312;304;283;253;222;197;181;174;172;172"></animate><animate attributeName="y2" dur="6s" repeatCount="indefinite" keyTimes="0.000;0.140;0.158;0.175;0.193;0.210;0.228;0.245;0.263;0.280;0.780;0.780;0.795;0.810;0.825;0.840;0.855;0.870;0.885;0.900;1.000" values="172;172;174;181;197;222;253;283;304;312;312;312;304;283;253;222;197;181;174;172;172"></animate><animate attributeName="opacity" dur="6s" repeatCount="indefinite" calcMode="discrete" keyTimes="0.000;0.140;0.158;0.175;0.193;0.210;0.228;0.245;0.263;0.280;0.780;0.780;0.795;0.810;0.825;0.840;0.855;0.870;0.885;0.900;1.000" values="1;1;1;1;1;1;1;1;0;0;0;0;0;1;1;1;1;1;1;1;1"></animate></line>
+<g transform="translate(300 190)"><path d="M0,-14 Q2.1,-2.1 14,0 Q2.1,2.1 0,14 Q-2.1,2.1 -14,0 Q-2.1,-2.1 0,-14Z" fill="#55BBF8" opacity="0"><animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.46;0.52;0.62;1" values="0;0;1;0;0"></animate><animateTransform attributeName="transform" type="scale" dur="6s" repeatCount="indefinite" keyTimes="0;0.46;0.52;0.62;1" values="0;0;1.2;0;0"></animateTransform><animateTransform attributeName="transform" type="rotate" additive="sum" dur="6s" repeatCount="indefinite" keyTimes="0;0.46;0.52;0.62;1" values="0;0;45;135;135"></animateTransform></path></g><g transform="translate(118 177)"><path d="M0,-9 Q1.3,-1.3 9,0 Q1.3,1.3 0,9 Q-1.3,1.3 -9,0 Q-1.3,-1.3 0,-9Z" fill="#55BBF8" opacity="0"><animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.5;0.56;0.66;1" values="0;0;1;0;0"></animate><animateTransform attributeName="transform" type="scale" dur="6s" repeatCount="indefinite" keyTimes="0;0.5;0.56;0.66;1" values="0;0;1.2;0;0"></animateTransform><animateTransform attributeName="transform" type="rotate" additive="sum" dur="6s" repeatCount="indefinite" keyTimes="0;0.5;0.56;0.66;1" values="0;0;45;135;135"></animateTransform></path></g><g transform="translate(205 169)"><path d="M0,-9 Q1.3,-1.3 9,0 Q1.3,1.3 0,9 Q-1.3,1.3 -9,0 Q-1.3,-1.3 0,-9Z" fill="#55BBF8" opacity="0"><animate attributeName="opacity" dur="6s" repeatCount="indefinite" keyTimes="0;0.53;0.59;0.69;1" values="0;0;1;0;0"></animate><animateTransform attributeName="transform" type="scale" dur="6s" repeatCount="indefinite" keyTimes="0;0.53;0.59;0.69;1" values="0;0;1.2;0;0"></animateTransform><animateTransform attributeName="transform" type="rotate" additive="sum" dur="6s" repeatCount="indefinite" keyTimes="0;0.53;0.59;0.69;1" values="0;0;45;135;135"></animateTransform></path></g>
+</svg>
+`;var Xe=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" aria-hidden="true">
+<path d="M150,78 q-12,-12 0,-24 q12,-12 0,-24" fill="none" stroke="#55BBF8" stroke-width="8" stroke-linecap="round" opacity="0"><animateTransform attributeName="transform" type="translate" values="0 12;0 -14" dur="3s" begin="0s" repeatCount="indefinite"></animateTransform><animate attributeName="opacity" values="0;1;0" dur="3s" begin="0s" repeatCount="indefinite"></animate></path>
+<path d="M200,78 q-12,-12 0,-24 q12,-12 0,-24" fill="none" stroke="#55BBF8" stroke-width="8" stroke-linecap="round" opacity="0"><animateTransform attributeName="transform" type="translate" values="0 12;0 -14" dur="3s" begin="1s" repeatCount="indefinite"></animateTransform><animate attributeName="opacity" values="0;1;0" dur="3s" begin="1s" repeatCount="indefinite"></animate></path>
+<path d="M250,78 q-12,-12 0,-24 q12,-12 0,-24" fill="none" stroke="#55BBF8" stroke-width="8" stroke-linecap="round" opacity="0"><animateTransform attributeName="transform" type="translate" values="0 12;0 -14" dur="3s" begin="2s" repeatCount="indefinite"></animateTransform><animate attributeName="opacity" values="0;1;0" dur="3s" begin="2s" repeatCount="indefinite"></animate></path>
+<line x1="105" y1="332" x2="105" y2="346" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="295" y1="332" x2="295" y2="346" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<rect class="paper" x="80" y="90" width="240" height="240" rx="20" stroke="currentColor" stroke-width="10"></rect>
+<line x1="80" y1="150" x2="320" y2="150" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="112" y1="108" x2="112" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="134" y1="108" x2="134" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="156" y1="108" x2="156" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="178" y1="108" x2="178" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="200" y1="108" x2="200" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+
+<line x1="80" y1="290" x2="320" y2="290" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="160" y1="172" x2="240" y2="172" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<circle cx="280" cy="120" r="15" fill="#55BBF8"></circle>
+</svg>
+`;var et=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" aria-hidden="true">
+<g><animateTransform attributeName="transform" type="translate" values="0 0;-5 0;5 0;-4 0;4 0;0 0;0 0" keyTimes="0;.05;.1;.15;.2;.25;1" dur="2s" repeatCount="indefinite"></animateTransform>
+<line x1="105" y1="332" x2="105" y2="346" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="295" y1="332" x2="295" y2="346" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<rect class="paper" x="80" y="90" width="240" height="240" rx="20" stroke="currentColor" stroke-width="10"></rect>
+<line x1="80" y1="150" x2="320" y2="150" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="112" y1="108" x2="112" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="134" y1="108" x2="134" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="156" y1="108" x2="156" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="178" y1="108" x2="178" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="200" y1="108" x2="200" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+
+<line x1="80" y1="290" x2="320" y2="290" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="160" y1="172" x2="240" y2="172" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<g><circle cx="280" cy="120" r="17" fill="#FB8C00"><animate attributeName="r" values="17;21;17" dur="1.2s" repeatCount="indefinite"></animate></circle>
+<line x1="280" y1="110" x2="280" y2="122" stroke="#fff" stroke-width="6" stroke-linecap="round"></line><circle cx="280" cy="131" r="3.5" fill="#fff"></circle></g>
+</g>
+</svg>
+`;var tt=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" aria-hidden="true">
+<line x1="105" y1="332" x2="105" y2="346" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="295" y1="332" x2="295" y2="346" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<rect class="paper" x="80" y="90" width="240" height="240" rx="20" stroke="currentColor" stroke-width="10"></rect>
+<line x1="80" y1="150" x2="320" y2="150" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="112" y1="108" x2="112" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="134" y1="108" x2="134" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="156" y1="108" x2="156" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="178" y1="108" x2="178" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="200" y1="108" x2="200" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+
+<line x1="80" y1="290" x2="320" y2="290" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="160" y1="172" x2="240" y2="172" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<circle class="knob-off" cx="280" cy="120" r="15"></circle>
+</svg>
+`;var rt=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" aria-hidden="true">
+
+<line x1="105" y1="332" x2="105" y2="346" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="295" y1="332" x2="295" y2="346" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<rect class="paper" x="80" y="90" width="240" height="240" rx="20" stroke="currentColor" stroke-width="10"></rect>
+<line x1="80" y1="150" x2="320" y2="150" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="112" y1="108" x2="112" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="134" y1="108" x2="134" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="156" y1="108" x2="156" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="178" y1="108" x2="178" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="200" y1="108" x2="200" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+
+
+
+<circle cx="280" cy="120" r="15" fill="#55BBF8"></circle>
+<clipPath id="co"><rect x="85" y="150" width="230" height="140"></rect></clipPath><g clip-path="url(#co)"><circle class="paper" cx="166" cy="244" r="52" stroke="currentColor" stroke-width="10"></circle><circle cx="166" cy="244" r="37" fill="#55BBF8"></circle><circle class="paper" cx="236" cy="244" r="52" stroke="currentColor" stroke-width="10"></circle><circle cx="236" cy="244" r="37" fill="#55BBF8"></circle></g>
+<polygon class="paper" points="80,290 320,290 374,316 26,316" stroke="currentColor" stroke-width="10" stroke-linejoin="round"></polygon>
+</svg>
+`;var it=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" aria-hidden="true">
+<line x1="105" y1="332" x2="105" y2="346" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="295" y1="332" x2="295" y2="346" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<rect class="paper" x="80" y="90" width="240" height="240" rx="20" stroke="currentColor" stroke-width="10"></rect>
+<line x1="80" y1="150" x2="320" y2="150" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="112" y1="108" x2="112" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="134" y1="108" x2="134" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="156" y1="108" x2="156" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="178" y1="108" x2="178" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="200" y1="108" x2="200" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<clipPath id="cr"><rect x="85" y="180" width="230" height="105"></rect></clipPath>
+<g clip-path="url(#cr)">
+<circle class="paper" cx="170" cy="238" r="46" stroke="currentColor" stroke-width="10"></circle><circle cx="170" cy="238" r="32" fill="#55BBF8"></circle>
+<circle class="paper" cx="232" cy="238" r="46" stroke="currentColor" stroke-width="10"></circle><circle cx="232" cy="238" r="32" fill="#55BBF8"></circle>
+<line x1="110" y1="176" x2="110" y2="190" stroke="#55BBF8" stroke-width="6" stroke-linecap="round" opacity="0"><animateTransform attributeName="transform" type="translate" values="0 0;0 95" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.8;1" dur="1s" begin="0s" repeatCount="indefinite"></animate></line>
+<line x1="150" y1="176" x2="150" y2="190" stroke="#55BBF8" stroke-width="6" stroke-linecap="round" opacity="0"><animateTransform attributeName="transform" type="translate" values="0 0;0 95" dur="1s" begin="0.45s" repeatCount="indefinite"></animateTransform><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.8;1" dur="1s" begin="0.45s" repeatCount="indefinite"></animate></line>
+<line x1="190" y1="176" x2="190" y2="190" stroke="#55BBF8" stroke-width="6" stroke-linecap="round" opacity="0"><animateTransform attributeName="transform" type="translate" values="0 0;0 95" dur="1s" begin="0.2s" repeatCount="indefinite"></animateTransform><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.8;1" dur="1s" begin="0.2s" repeatCount="indefinite"></animate></line>
+<line x1="230" y1="176" x2="230" y2="190" stroke="#55BBF8" stroke-width="6" stroke-linecap="round" opacity="0"><animateTransform attributeName="transform" type="translate" values="0 0;0 95" dur="1s" begin="0.65s" repeatCount="indefinite"></animateTransform><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.8;1" dur="1s" begin="0.65s" repeatCount="indefinite"></animate></line>
+<line x1="270" y1="176" x2="270" y2="190" stroke="#55BBF8" stroke-width="6" stroke-linecap="round" opacity="0"><animateTransform attributeName="transform" type="translate" values="0 0;0 95" dur="1s" begin="0.1s" repeatCount="indefinite"></animateTransform><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.8;1" dur="1s" begin="0.1s" repeatCount="indefinite"></animate></line>
+<line x1="130" y1="176" x2="130" y2="190" stroke="#55BBF8" stroke-width="6" stroke-linecap="round" opacity="0"><animateTransform attributeName="transform" type="translate" values="0 0;0 95" dur="1s" begin="0.75s" repeatCount="indefinite"></animateTransform><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.8;1" dur="1s" begin="0.75s" repeatCount="indefinite"></animate></line>
+<line x1="250" y1="176" x2="250" y2="190" stroke="#55BBF8" stroke-width="6" stroke-linecap="round" opacity="0"><animateTransform attributeName="transform" type="translate" values="0 0;0 95" dur="1s" begin="0.35s" repeatCount="indefinite"></animateTransform><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.8;1" dur="1s" begin="0.35s" repeatCount="indefinite"></animate></line>
+<line x1="210" y1="176" x2="210" y2="190" stroke="#55BBF8" stroke-width="6" stroke-linecap="round" opacity="0"><animateTransform attributeName="transform" type="translate" values="0 0;0 95" dur="1s" begin="0.9s" repeatCount="indefinite"></animateTransform><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.8;1" dur="1s" begin="0.9s" repeatCount="indefinite"></animate></line>
+<line x1="170" y1="176" x2="170" y2="190" stroke="#55BBF8" stroke-width="6" stroke-linecap="round" opacity="0"><animateTransform attributeName="transform" type="translate" values="0 0;0 95" dur="1s" begin="0.55s" repeatCount="indefinite"></animateTransform><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.8;1" dur="1s" begin="0.55s" repeatCount="indefinite"></animate></line>
+<line x1="290" y1="176" x2="290" y2="190" stroke="#55BBF8" stroke-width="6" stroke-linecap="round" opacity="0"><animateTransform attributeName="transform" type="translate" values="0 0;0 95" dur="1s" begin="0.8s" repeatCount="indefinite"></animateTransform><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.8;1" dur="1s" begin="0.8s" repeatCount="indefinite"></animate></line>
+</g>
+<line x1="80" y1="290" x2="320" y2="290" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="160" y1="172" x2="240" y2="172" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<circle cx="280" cy="120" r="15" fill="#55BBF8"><animate attributeName="opacity" values="1;.3;1" dur="1.6s" repeatCount="indefinite"></animate></circle>
+</svg>
+`;var nt=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" aria-hidden="true">
+<g opacity=".4">
+<line x1="105" y1="332" x2="105" y2="346" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="295" y1="332" x2="295" y2="346" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<rect class="paper" x="80" y="90" width="240" height="240" rx="20" stroke="currentColor" stroke-width="10"></rect>
+<line x1="80" y1="150" x2="320" y2="150" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="112" y1="108" x2="112" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="134" y1="108" x2="134" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="156" y1="108" x2="156" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="178" y1="108" x2="178" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="200" y1="108" x2="200" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+
+<line x1="80" y1="290" x2="320" y2="290" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="160" y1="172" x2="240" y2="172" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+
+</g>
+<circle class="knob-off" cx="280" cy="120" r="19"></circle><text x="280" y="129" text-anchor="middle" font-family="Roboto, sans-serif" font-size="26" font-weight="700" fill="#fff">?</text>
+</svg>
+`;var ot=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" aria-hidden="true">
+<line x1="105" y1="332" x2="105" y2="346" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="295" y1="332" x2="295" y2="346" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<rect class="paper" x="80" y="90" width="240" height="240" rx="20" stroke="currentColor" stroke-width="10"></rect>
+<line x1="80" y1="150" x2="320" y2="150" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="112" y1="108" x2="112" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="134" y1="108" x2="134" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="156" y1="108" x2="156" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="178" y1="108" x2="178" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="200" y1="108" x2="200" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<clipPath id="cw"><rect x="85" y="180" width="230" height="105"></rect></clipPath>
+<g clip-path="url(#cw)">
+<path d="M-80,232 q20,-10 40,0 t40,0 t40,0 t40,0 t40,0 t40,0 t40,0 t40,0 t40,0 t40,0 t40,0 t40,0 t40,0 t40,0 t40,0 V300 H-80Z" fill="#55BBF8" opacity=".35"><animateTransform attributeName="transform" type="translate" values="0 0;80 0" dur="1.6s" repeatCount="indefinite"></animateTransform></path>
+<g><animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="1.8s" begin="0s" repeatCount="indefinite"></animateTransform><circle class="paper" cx="170" cy="238" r="46" stroke="currentColor" stroke-width="10"></circle><circle cx="170" cy="238" r="32" fill="#55BBF8"></circle></g>
+<g><animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="1.8s" begin="0.45s" repeatCount="indefinite"></animateTransform><circle class="paper" cx="232" cy="238" r="46" stroke="currentColor" stroke-width="10"></circle><circle cx="232" cy="238" r="32" fill="#55BBF8"></circle></g>
+<path d="M-80,246 q20,-8 40,0 t40,0 t40,0 t40,0 t40,0 t40,0 t40,0 t40,0 t40,0 t40,0 t40,0 t40,0 t40,0 t40,0 t40,0 V300 H-80Z" fill="#55BBF8" opacity=".85"><animateTransform attributeName="transform" type="translate" values="80 0;0 0" dur="2.2s" repeatCount="indefinite"></animateTransform></path>
+<circle class="paper" cx="130" cy="280" r="7" stroke="#55BBF8" stroke-width="4" opacity="0"><animate attributeName="cy" values="280;195" dur="2.4s" begin="0s" repeatCount="indefinite"></animate><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.8;1" dur="2.4s" begin="0s" repeatCount="indefinite"></animate></circle>
+<circle class="paper" cx="205" cy="280" r="9" stroke="#55BBF8" stroke-width="4" opacity="0"><animate attributeName="cy" values="280;195" dur="2.4s" begin="0.7s" repeatCount="indefinite"></animate><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.8;1" dur="2.4s" begin="0.7s" repeatCount="indefinite"></animate></circle>
+<circle class="paper" cx="265" cy="280" r="6" stroke="#55BBF8" stroke-width="4" opacity="0"><animate attributeName="cy" values="280;195" dur="2.4s" begin="1.3s" repeatCount="indefinite"></animate><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.8;1" dur="2.4s" begin="1.3s" repeatCount="indefinite"></animate></circle>
+<circle class="paper" cx="170" cy="280" r="5" stroke="#55BBF8" stroke-width="4" opacity="0"><animate attributeName="cy" values="280;195" dur="2.4s" begin="1.9s" repeatCount="indefinite"></animate><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.8;1" dur="2.4s" begin="1.9s" repeatCount="indefinite"></animate></circle>
+</g>
+<line x1="80" y1="290" x2="320" y2="290" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="160" y1="172" x2="240" y2="172" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<circle cx="280" cy="120" r="15" fill="#55BBF8"><animate attributeName="opacity" values="1;.3;1" dur="1.6s" repeatCount="indefinite"></animate></circle>
+</svg>
+`;var Q={salt:{domain:"binary_sensor",key:"dishwasher_salt_empty",match:/salt_empty$/},rinse_aid:{domain:"binary_sensor",key:"dishwasher_rinse_aid_empty",match:/rinse_aid_empty$/},door:{domain:"binary_sensor",key:"dishwasher_door",match:/_door$/},remote:{domain:"binary_sensor",key:"remote_control",match:/remote_control$/},error:{domain:"sensor",key:"dishwasher_error_code",match:/error_code$/},eco:{domain:"switch",key:"dishwasher_eco_switch",match:/_eco(_option)?$/},three_in_one:{domain:"switch",key:"dishwasher_three_in_one_switch",match:/3in1|three_in_one/},start:{domain:"button",key:"dishwasher_start_button",match:/start(_button|_dishwasher)?$/},stop:{domain:"button",key:"dishwasher_stop_button",match:/stop(_button|_dishwasher)?$/}},_e={salt:"mdi:shaker-outline",rinse_aid:"mdi:water-outline",remote:"mdi:remote"},Dt={entity:"Dishwasher status sensor (Candy)",name:"Name",needs_emptying:"Needs emptying (binary sensor, optional)",hide_controls:"Hide Start / Stop",salt:"Salt empty",rinse_aid:"Rinse aid empty",door:"Door",remote:"Remote control",error:"Error code",eco:"Eco option",three_in_one:"3-in-1 tablets",start:"Start button",stop:"Stop button"},ae=["Pre-wash","Wash","Rinse","Drying"],Ht="Delayed start programmed",Ft=new Set(["unavailable","unknown"]),Lt=new Set(["E0","0","","unknown","unavailable"]),It={off:tt,unknown:nt,rinsing:it,washing:ot,drying:Xe,done:Je,open:rt,error:et,delayed:Ye},jt={"Pre-wash":"rinsing",Wash:"washing",Rinse:"rinsing",Drying:"drying"},st={en:{title:"Dishwasher",idle:"Idle",unknown:"Unknown",finished:"Finished",delayed:"Delayed start",error:i=>`Error ${i}`,stages:{"Pre-wash":"Pre-wash",Wash:"Wash",Rinse:"Rinse",Drying:"Drying"},readyToStart:"Ready to start",doorOpen:"Door open",doorClosed:"Door closed",remoteOff:"Remote control off",remoteOn:"Remote control on",noData:"No data from the dishwasher",running:i=>`Program ${i} running`,delayedSub:"Delayed start programmed",needsEmptying:"Needs emptying",emptied:"Emptied",errorSub:i=>`Error code ${i}`,program:"Program",remaining:"Remaining",endsAt:"Ends at",delay:"Delay",finishedRow:"Finished",door:"Door",open:"Open",closed:"Closed",hours:i=>`${i} h`,duration:i=>i>=60?`${Math.floor(i/60)} h${i%60?` ${i%60} min`:""}`:`${i} min`,ago:i=>`${i} ago`,eco:"Eco",threeInOne:"3-in-1",saltOk:"Salt OK",saltEmpty:"Salt empty",rinseOk:"Rinse aid OK",rinseEmpty:"Rinse aid empty",start:"Start",stop:"Stop",confirmStop:"Tap again to stop",hintUnavailable:"The dishwasher integration is unavailable.",hintRemote:i=>`Turn on remote control on the dishwasher to ${i?"stop":"start"} it from here.`,hintDoor:"Close the door before starting.",missing:"Entity not found"},it:{title:"Lavastoviglie",idle:"In attesa",unknown:"Sconosciuto",finished:"Finita",delayed:"Partenza ritardata",error:i=>`Errore ${i}`,stages:{"Pre-wash":"Prelavaggio",Wash:"Lavaggio",Rinse:"Risciacquo",Drying:"Asciugatura"},readyToStart:"Pronta per partire",doorOpen:"Porta aperta",doorClosed:"Porta chiusa",remoteOff:"Controllo remoto spento",remoteOn:"Controllo remoto attivo",noData:"Nessun dato dalla lavastoviglie",running:i=>`Programma ${i} in corso`,delayedSub:"Partenza ritardata impostata",needsEmptying:"Da svuotare",emptied:"Svuotata",errorSub:i=>`Codice errore ${i}`,program:"Programma",remaining:"Mancano",endsAt:"Fine alle",delay:"Ritardo",finishedRow:"Finita",door:"Porta",open:"Aperta",closed:"Chiusa",hours:i=>`${i} h`,duration:i=>i>=60?`${Math.floor(i/60)} h${i%60?` ${i%60} min`:""}`:`${i} min`,ago:i=>`${i} fa`,eco:"Eco",threeInOne:"3 in 1",saltOk:"Sale OK",saltEmpty:"Sale finito",rinseOk:"Brillantante OK",rinseEmpty:"Brillantante finito",start:"Avvia",stop:"Interrompi",confirmStop:"Tocca di nuovo per fermare",hintUnavailable:"L'integrazione della lavastoviglie non \xE8 disponibile.",hintRemote:i=>`Attiva il controllo remoto sulla lavastoviglie per ${i?"fermarla":"avviarla"} da qui.`,hintDoor:"Chiudi la porta prima di avviare.",missing:"Entit\xE0 non trovata"}},N=class extends _{constructor(){super(...arguments);this.armedStop=!1;this.tick=0;this.reducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)");this.onMotionChange=()=>this.requestUpdate()}static getConfigForm(){let t=(r,n)=>({name:r,selector:{entity:{filter:{domain:n}}}});return{schema:[{name:"entity",required:!0,selector:{entity:{filter:{domain:"sensor",integration:"candy"}}}},{name:"name",selector:{text:{}}},t("needs_emptying","binary_sensor"),{name:"hide_controls",selector:{boolean:{}}},{type:"expandable",name:"",title:"Entities (found automatically on the dishwasher's device)",schema:Object.keys(Q).map(r=>t(r,Q[r].domain))}],computeLabel:r=>Dt[r.name]}}static getStubConfig(t){return{entity:Object.values(t.entities).find(n=>n.platform==="candy"&&n.entity_id.startsWith("sensor.")&&"salt_empty"in(t.states[n.entity_id]?.attributes??{}))?.entity_id??"sensor.dishwasher"}}setConfig(t){if(!t.entity)throw new Error("entity is required: the Candy dishwasher status sensor");this.config=t}getCardSize(){return 6}connectedCallback(){super.connectedCallback(),this.clock=window.setInterval(()=>this.tick++,6e4),this.reducedMotion.addEventListener("change",this.onMotionChange)}disconnectedCallback(){super.disconnectedCallback(),window.clearTimeout(this.armedTimer),window.clearInterval(this.clock),this.reducedMotion.removeEventListener("change",this.onMotionChange)}get t(){return(this.hass?.locale.language.split("-")[0]??"en")==="it"?st.it:st.en}entities(){let t=this.hass,r=this.config,n=t.entities[r.entity]?.device_id,o=n?Object.values(t.entities).filter(l=>l.device_id===n&&l.platform==="candy"):[],s={};for(let l of Object.keys(Q)){let{domain:a,key:p,match:h}=Q[l],c=o.filter(m=>m.entity_id.startsWith(`${a}.`)),y=r[l]??(c.find(m=>m.translation_key===p)??c.find(m=>h.test(m.entity_id)))?.entity_id;y&&t.states[y]&&(s[l]=t.states[y])}return s}shouldUpdate(t){if(!t.has("hass")||t.size>1)return!0;let r=t.get("hass");if(!r||!this.hass||!this.config||r.locale!==this.hass.locale||r.entities!==this.hass.entities)return!0;let n=this.config;return[n.entity,n.needs_emptying,...Object.keys(Q).map(s=>n[s]),...Object.values(this.entities()).map(s=>s.entity_id)].filter(s=>!!s).some(s=>r.states[s]!==this.hass.states[s])}updated(){let t=this.renderRoot.querySelector(".art svg");t&&(this.reducedMotion.matches?(t.pauseAnimations(),t.setCurrentTime(0)):t.unpauseAnimations())}time(t){return t.toLocaleTimeString(this.hass?.locale.language,{hour:"2-digit",minute:"2-digit"})}since(t){let r=Math.max(0,Math.round((Date.now()-new Date(t).getTime())/6e4));return r<2880?this.t.duration(r):`${Math.round(r/1440)} d`}moreInfo(t,r){t.stopPropagation(),this.dispatchEvent(new CustomEvent("hass-more-info",{detail:{entityId:r},bubbles:!0,composed:!0}))}send(t){Promise.resolve(this.hass.callService("button","press",{entity_id:t.entity_id})).catch(()=>{})}press(t,r){t.stopPropagation(),this.send(r)}pressStop(t,r){if(t.stopPropagation(),window.clearTimeout(this.armedTimer),!this.armedStop){this.armedStop=!0,this.armedTimer=window.setTimeout(()=>this.armedStop=!1,3e3);return}this.armedStop=!1,this.send(r)}pill(t){let r=t.entity?f`<ha-state-icon .hass=${this.hass} .stateObj=${t.entity}></ha-state-icon>`:f`<ha-icon icon=${t.icon}></ha-icon>`;return f`<span
+      class="pill ${t.kind} ${t.entity?"link":""}"
+      @click=${t.entity?n=>this.moreInfo(n,t.entity.entity_id):void 0}
+      >${r}${t.text}</span
+    >`}render(){if(!this.hass||!this.config)return d;this.tick;let t=this.t,r=this.config,n=this.hass.states[r.entity];if(!n)return f`<ha-card><div class="missing">${t.missing}: ${r.entity}</div></ha-card>`;let o=this.entities(),s=r.needs_emptying?this.hass.states[r.needs_emptying]:void 0,l=n.attributes,a=n.state,p=Ft.has(a),h=ae.includes(a),c=a===Ht,y=(u,R)=>o[u]?o[u].state==="on":l[R]===!0,m=y("door","door_open"),g=y("remote","remote_control"),Ce=y("salt","salt_empty"),$e=y("rinse_aid","rinse_aid_empty"),at=y("eco","eco_mode"),lt=o.three_in_one?.state==="on",K=o.error?.state??"E0",Te=!p&&!Lt.has(K),M=typeof l.program=="string"&&l.program?l.program:"\u2014",Z=Number(l.remaining_minutes??0),le=s?.state==="on",U=!h&&!c&&!p&&(a==="Finished"||le),C,$,w,v;if(p)[C,$,w,v]=[t.unknown,"grey",t.noData,"unknown"];else if(h){let u=a;[C,$,w,v]=[t.stages[u],u==="Drying"?"teal":"blue",t.running(M),jt[u]]}else c?[C,$,w,v]=[t.delayed,"purple",t.delayedSub,"delayed"]:U?[C,$,w,v]=[t.finished,"green",s?le?t.needsEmptying:t.emptied:t.finished,m?"open":"done"]:[C,$,w,v]=[t.idle,"grey",m?t.doorOpen:g?t.readyToStart:t.remoteOff,m?"open":"off"];Te&&(w=v==="off"?t.errorSub(K):`${t.errorSub(K)} \xB7 ${w}`,[C,$,v]=[t.error(K),"orange","error"]);let B;if(p)B=[[t.program,"\u2014"],[t.remaining,"\u2014"]];else if(h)B=[[t.program,M],[t.remaining,Z>0?t.duration(Z):"\u2014"],[t.endsAt,Z>0?this.time(new Date(Date.now()+Z*6e4)):"\u2014"]];else if(c){let u=Number(l.delayed_start_hours??0);B=[[t.program,M],[t.delay,u>0?t.hours(u):"\u2014"]]}else if(U){let u=s?.attributes.finished_at??(a==="Finished"?n.last_changed:void 0);B=[[t.program,M],[t.finishedRow,u?`${this.time(new Date(u))} \xB7 ${t.ago(this.since(u))}`:"\u2014"]]}else B=[[t.program,M],[t.door,m?t.open:t.closed]];let Ee=p?[]:[at&&t.eco,lt&&t.threeInOne].filter(u=>!!u),Ae=h?ae.indexOf(a):U?ae.length:-1,ct=ae.map((u,R)=>{let dt=R<Ae?U?"complete":"done":R===Ae?Te?"current error":"current":"";return f`<div class="step ${dt}"><span></span><label>${t.stages[u]}</label></div>`}),G=[];U&&le&&G.push({text:t.needsEmptying,entity:s,icon:"mdi:silverware-clean",kind:"info"}),p||G.push({text:m?t.doorOpen:t.doorClosed,role:"door",entity:o.door,icon:m?"mdi:door-open":"mdi:door-closed",kind:"neutral"},{text:Ce?t.saltEmpty:t.saltOk,role:"salt",entity:o.salt,icon:_e.salt,kind:Ce?"bad":"ok"},{text:$e?t.rinseEmpty:t.rinseOk,role:"rinse_aid",entity:o.rinse_aid,icon:_e.rinse_aid,kind:$e?"bad":"ok"},{text:g?t.remoteOn:t.remoteOff,role:"remote",entity:o.remote,icon:_e.remote,kind:g?"ok":"bad"});let T=h||c,Y=T?o.stop:o.start,Se=p||Y?.state==="unavailable"?t.hintUnavailable:g?"":t.hintRemote(T),ce=Se||(!T&&m?t.hintDoor:""),Ne=!r.hide_controls&&Y?f`<button
+            class="action ${T?"stop":"start"} ${this.armedStop?"armed":""}"
+            ?disabled=${Se!==""}
+            @click=${u=>T?this.pressStop(u,Y):this.press(u,Y)}
+          >
+            <ha-icon icon=${T?"mdi:stop":"mdi:play"}></ha-icon>
+            ${T?this.armedStop?t.confirmStop:t.stop:t.start}
+          </button>`:d;return f`
+      <ha-card class="tone-${$}" @click=${u=>this.moreInfo(u,r.entity)}>
         <div class="head">
-          <div class="art">${Bt(Ot)}</div>
           <div class="titles">
-            <div class="name">${this.config.name??e.title}</div>
-            <div class="status">${c}</div>
-            ${f&&!Ut.has(a)?y`<div class="muted">${f}</div>`:d}
+            <div class="name">${r.name??t.title}</div>
+            <div class="muted">${w}</div>
+          </div>
+          <span class="chip">${C}</span>
+        </div>
+        <div class="body">
+          <div class="art">${Ge(It[v])}</div>
+          <div class="facts">
+            ${B.map(([u,R])=>f`<div class="fact"><span class="muted">${u}</span><span>${R}</span></div>`)}
+            ${Ee.length?f`<div class="options">${Ee.map(u=>f`<span>${u}</span>`)}</div>`:d}
           </div>
         </div>
-        ${m}
-        ${ct.length?y`<div class="chips">${ct.map(h=>y`<span class="chip">${h}</span>`)}</div>`:d}
-        ${ht.some(h=>h!==d)?y`<div class="controls">${ht}</div>`:d}
-      </ha-card>`}static{this.styles=Z`
+        <div class="steps">${ct}</div>
+        ${G.length?f`<div class="pills">${G.map(u=>this.pill(u))}</div>`:d}
+        ${ce||Ne!==d?f`<div class="foot">
+              ${ce?f`<span class="hint">${ce}</span>`:d} ${Ne}
+            </div>`:d}
+      </ha-card>`}static{this.styles=pe`
     ha-card {
-      padding: 16px;
+      --cdw-blue: var(--blue-color, #2196f3);
+      --cdw-ok: var(--success-color, #43a047);
+      --cdw-warn: var(--warning-color, #fb8c00);
+      --cdw-tone: var(--secondary-text-color);
+      padding: 20px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 16px;
+    }
+    .tone-blue {
+      --cdw-tone: var(--cdw-blue);
+    }
+    .tone-teal {
+      --cdw-tone: var(--teal-color, #009688);
+    }
+    .tone-green {
+      --cdw-tone: var(--cdw-ok);
+    }
+    .tone-orange {
+      --cdw-tone: var(--cdw-warn);
+    }
+    .tone-purple {
+      --cdw-tone: var(--deep-purple-color, #673ab7);
     }
     .head {
       display: flex;
       align-items: center;
-      gap: 16px;
-    }
-    .art {
-      width: 72px;
-      height: 72px;
-      flex: none;
-    }
-    .art svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-    .idle .art {
-      opacity: 0.7;
+      gap: 12px;
     }
     .titles {
+      flex: 1;
       min-width: 0;
       display: flex;
       flex-direction: column;
       gap: 2px;
     }
     .name {
+      font-size: 16px;
       font-weight: 500;
       color: var(--primary-text-color);
-    }
-    .status {
-      color: var(--primary-text-color);
-    }
-    .attention .status {
-      color: var(--warning-color, #ffa600);
     }
     .muted,
     .missing {
       color: var(--secondary-text-color);
-      font-size: 0.9em;
+      font-size: 13px;
     }
-    .row {
+    .chip {
+      padding: 5px 12px;
+      border-radius: 16px;
+      font-size: 13px;
+      font-weight: 500;
+      white-space: nowrap;
+      /* Pulled toward the text color so dark tones stay readable on dark themes. */
+      color: color-mix(in srgb, var(--cdw-tone) 70%, var(--primary-text-color));
+      background: color-mix(in srgb, var(--cdw-tone) 16%, transparent);
+    }
+    .body {
       display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 8px;
+      align-items: center;
+      gap: 20px;
     }
-    .big {
-      font-size: 1.1em;
+    .art {
+      width: 120px;
+      height: 120px;
+      flex: none;
       color: var(--primary-text-color);
     }
-    .attention .big {
-      color: var(--warning-color, #ffa600);
+    .art svg {
+      width: 100%;
+      height: 100%;
+      display: block;
     }
-    .stepper {
+    .art .paper {
+      fill: var(--card-background-color, var(--ha-card-background, #fff));
+    }
+    .art .knob-off {
+      fill: var(--disabled-text-color, #bdbdbd);
+    }
+    .facts {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .fact {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--primary-text-color);
+    }
+    .fact .muted {
+      font-size: 14px;
+    }
+    .fact span:last-child {
+      font-weight: 500;
+      text-align: right;
+    }
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 6px;
+    }
+    .options span {
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--cdw-blue);
+      background: color-mix(in srgb, var(--cdw-blue) 16%, transparent);
+    }
+    .steps {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 4px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
     }
     .step span {
       display: block;
-      height: 4px;
-      border-radius: 2px;
+      height: 6px;
+      border-radius: 3px;
       background: var(--divider-color);
     }
     .step.done span {
-      background: var(--primary-color);
-      opacity: 0.5;
+      background: color-mix(in srgb, var(--primary-color) 45%, transparent);
     }
     .step.current span {
       background: var(--primary-color);
     }
+    .step.current.error span {
+      background: var(--cdw-warn);
+    }
+    .step.complete span {
+      background: var(--cdw-ok);
+    }
     .step label {
       display: block;
-      margin-top: 4px;
-      font-size: 0.75em;
+      margin-top: 8px;
+      font-size: 13px;
       color: var(--secondary-text-color);
       overflow: hidden;
       text-overflow: ellipsis;
@@ -249,38 +368,88 @@ var It=Object.defineProperty;var jt=Object.getOwnPropertyDescriptor;var T=(r,t,e
     }
     .step.current label {
       color: var(--primary-text-color);
+      font-weight: 500;
     }
-    .chips {
+    .pills {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-    }
-    .chip {
-      font-size: 0.8em;
-      padding: 2px 10px;
-      border-radius: 12px;
-      color: var(--error-color, #db4437);
-      background: rgba(var(--rgb-error-color, 219, 68, 55), 0.12);
-    }
-    .controls {
-      display: flex;
       gap: 8px;
     }
-    button {
+    .pill {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      font: inherit;
-      padding: 6px 14px;
-      border-radius: 18px;
-      border: 1px solid var(--divider-color);
-      background: none;
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 12px;
       color: var(--primary-text-color);
+      background: color-mix(in srgb, var(--primary-text-color) 6%, transparent);
+      --mdc-icon-size: 16px;
+    }
+    .pill ha-state-icon,
+    .pill ha-icon {
+      --state-icon-color: currentColor;
+      color: var(--secondary-text-color);
+    }
+    .pill.ok ha-state-icon,
+    .pill.ok ha-icon {
+      color: var(--cdw-ok);
+    }
+    .pill.bad {
+      color: var(--cdw-warn);
+      background: color-mix(in srgb, var(--cdw-warn) 16%, transparent);
+    }
+    .pill.bad ha-state-icon,
+    .pill.bad ha-icon,
+    .pill.info ha-state-icon,
+    .pill.info ha-icon {
+      color: inherit;
+    }
+    .pill.info {
+      color: var(--cdw-blue);
+      background: color-mix(in srgb, var(--cdw-blue) 16%, transparent);
+    }
+    .pill.link {
       cursor: pointer;
+    }
+    .foot {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+    .hint {
+      flex: 1;
+      font-size: 12px;
+      line-height: 16px;
+      color: var(--secondary-text-color);
+    }
+    .action {
+      flex: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 40px;
+      padding: 0 20px;
+      border: none;
+      border-radius: 20px;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--text-primary-color, #fff);
+      background: var(--primary-color);
       --mdc-icon-size: 18px;
     }
-    button.armed {
-      border-color: var(--error-color, #db4437);
-      color: var(--error-color, #db4437);
+    .action.stop {
+      background: var(--error-color, #db4437);
     }
-  `}};T([z({attribute:!1})],k.prototype,"hass",2),T([V()],k.prototype,"config",2),T([V()],k.prototype,"armedStop",2),T([V()],k.prototype,"tick",2);customElements.get("candy-dishwasher-card")||customElements.define("candy-dishwasher-card",k);window.customCards=window.customCards??[];window.customCards.some(r=>r.type==="candy-dishwasher-card")||window.customCards.push({type:"candy-dishwasher-card",name:"Candy Dishwasher Card",description:"Cycle stage, end time, supplies and start/stop for a Candy dishwasher.",preview:!0,documentationURL:"https://github.com/enricodeleo/candy-dishwasher-card"});console.info("%c candy-dishwasher-card 0.1.0 ","background:#55bbf8;color:#111");export{k as CandyDishwasherCard};
+    .action.armed {
+      outline: 2px solid var(--error-color, #db4437);
+      outline-offset: 2px;
+    }
+    .action:disabled {
+      opacity: 0.38;
+      cursor: not-allowed;
+    }
+  `}};D([ie({attribute:!1})],N.prototype,"hass",2),D([ne()],N.prototype,"config",2),D([ne()],N.prototype,"armedStop",2),D([ne()],N.prototype,"tick",2);customElements.get("candy-dishwasher-card")||customElements.define("candy-dishwasher-card",N);window.customCards=window.customCards??[];window.customCards.some(i=>i.type==="candy-dishwasher-card")||window.customCards.push({type:"candy-dishwasher-card",name:"Candy Dishwasher Card",description:"Cycle steps, end time, supplies and start/stop for a Candy dishwasher.",preview:!0,documentationURL:"https://github.com/enricodeleo/candy-dishwasher-card"});console.info("%c candy-dishwasher-card 0.2.0 ","background:#55bbf8;color:#111");export{N as CandyDishwasherCard};

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" aria-hidden="true">
+<path d="M150,78 q-12,-12 0,-24 q12,-12 0,-24" fill="none" stroke="#55BBF8" stroke-width="8" stroke-linecap="round" opacity="0"><animateTransform attributeName="transform" type="translate" values="0 12;0 -14" dur="3s" begin="0s" repeatCount="indefinite"></animateTransform><animate attributeName="opacity" values="0;1;0" dur="3s" begin="0s" repeatCount="indefinite"></animate></path>
+<path d="M200,78 q-12,-12 0,-24 q12,-12 0,-24" fill="none" stroke="#55BBF8" stroke-width="8" stroke-linecap="round" opacity="0"><animateTransform attributeName="transform" type="translate" values="0 12;0 -14" dur="3s" begin="1s" repeatCount="indefinite"></animateTransform><animate attributeName="opacity" values="0;1;0" dur="3s" begin="1s" repeatCount="indefinite"></animate></path>
+<path d="M250,78 q-12,-12 0,-24 q12,-12 0,-24" fill="none" stroke="#55BBF8" stroke-width="8" stroke-linecap="round" opacity="0"><animateTransform attributeName="transform" type="translate" values="0 12;0 -14" dur="3s" begin="2s" repeatCount="indefinite"></animateTransform><animate attributeName="opacity" values="0;1;0" dur="3s" begin="2s" repeatCount="indefinite"></animate></path>
+<line x1="105" y1="332" x2="105" y2="346" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="295" y1="332" x2="295" y2="346" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<rect class="paper" x="80" y="90" width="240" height="240" rx="20" stroke="currentColor" stroke-width="10"></rect>
+<line x1="80" y1="150" x2="320" y2="150" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="112" y1="108" x2="112" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="134" y1="108" x2="134" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="156" y1="108" x2="156" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="178" y1="108" x2="178" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="200" y1="108" x2="200" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+
+<line x1="80" y1="290" x2="320" y2="290" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="160" y1="172" x2="240" y2="172" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<circle cx="280" cy="120" r="15" fill="#55BBF8"></circle>
+</svg>

@@ -2,28 +2,33 @@
 
 <p align="center"><img src="assets/dishwasher-running.svg" width="200" alt="Animated dishwasher"></p>
 
-A Home Assistant dashboard card for Candy (Simply-Fi) dishwashers: which stage the cycle is
-in, when it will end, whether it still needs emptying, salt and rinse aid warnings, and
-start/stop.
+A Home Assistant dashboard card for Candy (Simply-Fi) dishwashers: which step the cycle is
+in, when it will end, whether it still needs emptying, salt and rinse aid, remote control,
+and start/stop.
 
 It reads the entities created by the **[Candy integration by bigmoby](https://github.com/bigmoby/home-assistant-candy)**
 (a maintained fork of ofalvai/home-assistant-candy), so install and set that up first.
 
 ## What it shows
 
+Every state has its own animated icon.
+
 | Dishwasher | Card |
 |---|---|
-| Running (Pre-wash, Wash, Rinse, Drying) | Animated dishwasher, stage stepper, end time, minutes left, program, Stop |
-| Finished | When it finished and how long ago, Start |
-| Delayed start | When it starts |
-| Idle / not reachable | Status and last program, Start when idle |
-| Any time | Salt empty, rinse aid empty; door open while running |
+| Pre-wash, Wash, Rinse, Drying | The four steps, time remaining, end time, program, Stop |
+| Finished | When it finished and how long ago, "Needs emptying" with the optional sensor, Start |
+| Delayed start programmed | The delay, Stop |
+| Idle | Ready to start, door open, or remote control off |
+| Error code other than `E0` | "Error E…" over whatever step it was on |
+| Unavailable | No data; Start is disabled |
 
-- **Stop** asks for a second tap within 3 seconds, because it cancels the program. It is
-  also offered during a delayed start.
-- **Start** and **Stop** only appear when the Candy integration can send the command. That needs
-  remote control enabled on the dishwasher's panel.
-- The animation runs only while a cycle runs, and never when the system asks for reduced motion.
+Below the steps, tags show the door, salt, rinse aid and remote control. They use each
+entity's own Home Assistant icon and open its details when tapped. Eco and 3-in-1 show when on.
+
+- **Stop** asks for a second tap within 3 seconds, because it cancels the program.
+- **Start** and **Stop** need remote control enabled on the dishwasher's panel. Until then the
+  button is disabled and the card says why.
+- Animations stop when the system asks for reduced motion.
 - Text is in English or Italian, following your Home Assistant language.
 
 <!-- ha-marketplace:exclude-start -->
@@ -51,7 +56,7 @@ entity: sensor.dishwasher
 | `name` | no | Card title (default "Dishwasher" / "Lavastoviglie") |
 | `needs_emptying` | no | A binary sensor that is on while a finished load waits to be emptied (see below) |
 | `hide_controls` | no | Hide Start/Stop (default `false`) |
-| `salt`, `rinse_aid`, `door`, `start`, `stop` | no | Override an entity. By default they are found on the dishwasher's device, by the Candy integration's names. Set them if you renamed those entities |
+| `salt`, `rinse_aid`, `door`, `remote`, `error`, `eco`, `three_in_one`, `start`, `stop` | no | Override an entity. By default they are found on the dishwasher's device, by the Candy integration's names. Set them only if that fails |
 
 ### "Needs emptying"
 
@@ -110,4 +115,4 @@ The release workflow attaches the built file to the release.
 
 ## License
 
-MIT. The dishwasher artwork is part of this project.
+MIT. The dishwasher artwork and state icons are part of this project.

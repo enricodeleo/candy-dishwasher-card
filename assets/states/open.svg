@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" aria-hidden="true">
+
+<line x1="105" y1="332" x2="105" y2="346" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="295" y1="332" x2="295" y2="346" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<rect class="paper" x="80" y="90" width="240" height="240" rx="20" stroke="currentColor" stroke-width="10"></rect>
+<line x1="80" y1="150" x2="320" y2="150" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="112" y1="108" x2="112" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="134" y1="108" x2="134" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="156" y1="108" x2="156" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="178" y1="108" x2="178" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+<line x1="200" y1="108" x2="200" y2="132" stroke="currentColor" stroke-width="10" stroke-linecap="round"></line>
+
+
+
+<circle cx="280" cy="120" r="15" fill="#55BBF8"></circle>
+<clipPath id="co"><rect x="85" y="150" width="230" height="140"></rect></clipPath><g clip-path="url(#co)"><circle class="paper" cx="166" cy="244" r="52" stroke="currentColor" stroke-width="10"></circle><circle cx="166" cy="244" r="37" fill="#55BBF8"></circle><circle class="paper" cx="236" cy="244" r="52" stroke="currentColor" stroke-width="10"></circle><circle cx="236" cy="244" r="37" fill="#55BBF8"></circle></g>
+<polygon class="paper" points="80,290 320,290 374,316 26,316" stroke="currentColor" stroke-width="10" stroke-linejoin="round"></polygon>
+</svg>
